@@ -1,0 +1,14 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "knowledgeResults" : {
+      "title" : "Knowledge Results",
+      "description" : "Top matching internal knowledge articles (title, article number, body), or NO_INTERNAL_ARTICLE_FOUND.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <agentDSLEnabled>true</agentDSLEnabled>
+    <agentType>AgentforceEmployeeAgent</agentType>
+    <botMlDomain>
+        <label>Rep Support (Lightning)</label>
+        <name>Rep_Support_Lightning</name>
+    </botMlDomain>
+    <botSource>None</botSource>
+    <description>Internal tastytrade rep-support assistant. Answers frontline reps&apos; questions from internal Salesforce Knowledge (internal-only, never website content) with citations and a self-assessed confidence score. Can also file a Jira bug, draft a knowledge article, or escalate to a lead. Never fabricates.</description>
+    <label>Rep Support (Lightning)</label>
+    <logPrivateConversationData>false</logPrivateConversationData>
+    <richContentEnabled>true</richContentEnabled>
+    <sessionTimeout>0</sessionTimeout>
+    <type>InternalCopilot</type>
+</Bot>

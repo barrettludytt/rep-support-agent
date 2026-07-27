@@ -1,0 +1,5 @@
+.sf/
+.sfdx/
+node_modules/
+*.log
+.DS_Store

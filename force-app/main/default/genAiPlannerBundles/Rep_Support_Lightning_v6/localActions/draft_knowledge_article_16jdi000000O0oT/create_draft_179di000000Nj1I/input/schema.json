@@ -1,0 +1,28 @@
+{
+  "required" : [ "InputTitle", "InputSummary" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "InputBody" : {
+      "title" : "Input Body",
+      "description" : "Full article body content",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "InputSummary" : {
+      "title" : "Input Summary",
+      "description" : "One-paragraph summary of what the article covers",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "InputTitle" : {
+      "title" : "Input Title",
+      "description" : "Title of the new knowledge article",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types><members>RepKnowledgeSearch</members><members>RepAgentWeeklyDigest</members><name>ApexClass</name></types>
+    <types><members>Rep_Support_Lightning</members><name>Bot</name></types>
+    <types><members>Rep_Support_Lightning_v6</members><name>GenAiPlannerBundle</name></types>
+    <version>61.0</version>
+</Package>

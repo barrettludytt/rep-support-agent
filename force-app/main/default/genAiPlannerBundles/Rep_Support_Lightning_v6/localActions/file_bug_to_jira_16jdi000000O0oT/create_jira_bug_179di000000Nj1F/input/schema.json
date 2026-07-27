@@ -1,0 +1,28 @@
+{
+  "required" : [ "InputSummary", "InputDescription" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "InputDescription" : {
+      "title" : "Input Description",
+      "description" : "Full description of the bug including steps to reproduce and any error message",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "InputFlowContext" : {
+      "title" : "Input Flow Context",
+      "description" : "Flow name and error message if this is a flow defect",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "InputSummary" : {
+      "title" : "Input Summary",
+      "description" : "One-line summary of the bug",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}
