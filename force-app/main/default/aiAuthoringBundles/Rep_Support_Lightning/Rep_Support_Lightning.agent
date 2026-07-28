@@ -161,7 +161,7 @@ subagent draft_knowledge_article:
 
    actions:
       create_draft:
-         description: "Create a DRAFT Knowledge article. The article is never auto-published — a human must review and publish it."
+         description: "Create a COMPLETE DRAFT Knowledge article (title, summary, body, and the rendered HTML file the Help Center needs). Never auto-published — a human reviews and publishes it."
          inputs:
             InputTitle: string
                description: "Title of the new knowledge article"
@@ -182,7 +182,7 @@ subagent draft_knowledge_article:
                description: "Salesforce ID of the created draft article"
             OutputFormattedResponse: string
                description: "Confirmation message with the article title and review note"
-         target: "flow://AF_SFSupport_Draft_Knowledge_Article"
+         target: "apex://KnowledgeDraftBuilder"
 
 subagent escalate_to_lead:
    label: "escalate_to_lead"
