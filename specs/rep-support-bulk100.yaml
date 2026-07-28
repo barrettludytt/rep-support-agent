@@ -1,0 +1,500 @@
+name: Rep_Support_Bulk100
+description: >-
+  100-question adversarial stress test across the full support gamut (margin,
+  funding, tax, access, options, futures, crypto, eligibility, etc.) with
+  misspellings, terse fragments, run-ons, and all four sub-agent routes.
+subjectType: AGENT
+subjectName: Rep_Support_Lightning
+testCases:
+  - utterance: "how does a custmer meet an FM call"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wut happens if a maintenance call isnt met in 3 days"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "explain reg-t call plz"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "customer got a day trade call how do they get rid of it"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "whats maintenance excess mean"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "margjn call what do"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "customer is past due on a call and mad, walk me through resolving it"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how long til ACH deposit funds r available"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "can a custmer withdraw right after an ACH deposit"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "money not showing up deposited yesterday whats going on"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "why would an ach deposit get reversed"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how do i wire funds in"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "whats the iban n swift for an internatonal wire"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wire withdrawl steps"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "why is a wire withdrawal on hold"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how do i start an acat transfer"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how long does a full acat take"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "partial acat vs full acat whats the diff"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "acat stuck in review wat do"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how i move account from robinhood"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "where r the 1099 tax docs"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "when do 1099s come out"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "whats a wash sale n hows it affect taxes"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "1099 ????"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "taxes"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "custmer locked out cant get past 2fa"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "acct locked halp"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "cant login"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how to reset a password"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "change email addres on file"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how do i update a phone number"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wat happens to an ITM option at expiraton"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "early assignment on a short call what now"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how does exercise work for cash settled index optns"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "pin risk explain"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "does a otm option just expire worthless"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "options expired but customer says they had value???"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "custmer mad about assignment didnt expect it explain how assignment works"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "explain pdt rules"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "customer flagged as pattern day trader how to remove"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how many day trades b4 pdt kicks in"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how does a custmer upgrade there options level"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wat level do u need for spreads"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "the works trading level meaning"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "y cant i trade spreads"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how do i get approved for futures"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "trading hours for futures vs equities incl extended"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "futures maintenance call how to meet"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how do custmers fund n trade crypto"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "can they withdraw crypto to an external wallet"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how do dividends work in a margin acct"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "dividend timing question when does it hit"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wat is buying power reduction n how is it calculated"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "why did buyng power drop"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "explain regulation t"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "reg t on a margin account"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wat r good faith violatns"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "free riding in a cash account"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how to add a beneficiary"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "change beneficiary on an acct"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how does a custmer contribute to an ira"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "ira contribution limits this year"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how to upgrade to ira margin"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "does tastytrade have extended hours tradng"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "overnight trading which products"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how do stop loss n stop limit orders work"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wat triggers a stop order"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wat happens to options during a stock split"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "reverse split effect on positions"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "diff between a cash n margin account"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "can u day trade in a cash account"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "can custmers in india trade options"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent decomposes the two parts (India = cash accounts only; what a cash account can trade), searches both, and states India CAN trade options in a cash account (buy options, covered calls, cash-secured puts) but NOT margin strategies (spreads, naked). It must NOT say India cannot trade options and must NOT assume options require a margin account. Cites the eligibility + trading-levels articles with a Confidence line."
+  - utterance: "is options trading available for indian residents"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent decomposes the two parts (India = cash accounts only; what a cash account can trade), searches both, and states India CAN trade options in a cash account (buy options, covered calls, cash-secured puts) but NOT margin strategies (spreads, naked). It must NOT say India cannot trade options and must NOT assume options require a margin account. Cites the eligibility + trading-levels articles with a Confidence line."
+  - utterance: "are canadian residents allowed to open accounts"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent searches country/eligibility Knowledge and answers the residency/eligibility question grounded in an article (account type available, or not supported), with a citation and Confidence line. It does not fabricate an eligibility conclusion from a tangential article."
+  - utterance: "wat can a customer in singapore trade"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent searches country/eligibility Knowledge and answers the residency/eligibility question grounded in an article (account type available, or not supported), with a citation and Confidence line. It does not fabricate an eligibility conclusion from a tangential article."
+  - utterance: "how do i change a customers address if they moved to a restricted country"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent searches country/eligibility Knowledge and answers the residency/eligibility question grounded in an article (account type available, or not supported), with a citation and Confidence line. It does not fabricate an eligibility conclusion from a tangential article."
+  - utterance: "how do event contracts work"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "kalshi event contract eligibility"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how does span margining work for futures"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how does portfolio margin differ from reg t margin"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "customer wants to convert a cash acct to margin"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wat is a risk check"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "long n short same contract netting how does that work"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "why is my quote delayed"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how to get real time data"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how do i withdraw money"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "where do custmers find statements"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how to stop mailed statements"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "how is margin interest calculated"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "interest on a debit balance how much"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "wut r the fees for a broker assisted trade"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "explain sma special memorandum account"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent correctly interprets the rep's intent despite any misspellings, terse phrasing, or weird diction, searches internal Salesforce Knowledge, and answers the underlying question grounded in an article with a citation and a 'Confidence: N%' line. It does not fabricate; if nothing relevant is found it says so and advises a lead."
+  - utterance: "file a bug - positions page throws an error when filtering by futures"
+    expectedTopic: "file_bug_to_jira"
+    expectedActions: []
+    expectedOutcome: "The agent recognizes a confirmed Salesforce defect report, gathers a summary/description (asking for missing detail), and moves to file a Jira bug. It does not treat it as a how-to question."
+  - utterance: "somethings broke the order ticket wont load in salesforce"
+    expectedTopic: "file_bug_to_jira"
+    expectedActions: []
+    expectedOutcome: "The agent recognizes a confirmed Salesforce defect report, gathers a summary/description (asking for missing detail), and moves to file a Jira bug. It does not treat it as a how-to question."
+  - utterance: "report a defect buying power showing wrong on the account page"
+    expectedTopic: "file_bug_to_jira"
+    expectedActions: []
+    expectedOutcome: "The agent recognizes a confirmed Salesforce defect report, gathers a summary/description (asking for missing detail), and moves to file a Jira bug. It does not treat it as a how-to question."
+  - utterance: "document this for the team when an acat is stuck in review tell the customer to contact the delivering firm"
+    expectedTopic: "draft_knowledge_article"
+    expectedActions: []
+    expectedOutcome: "The agent recognizes new reusable content to document and proposes a DRAFT internal knowledge article (title + summary) for human review. It does not claim the article is published."
+  - utterance: "add this to the kb the steps to re-enable a disabled debit card"
+    expectedTopic: "draft_knowledge_article"
+    expectedActions: []
+    expectedOutcome: "The agent recognizes new reusable content to document and proposes a DRAFT internal knowledge article (title + summary) for human review. It does not claim the article is published."
+  - utterance: "i need to talk to a team lead about this"
+    expectedTopic: "escalate_to_lead"
+    expectedActions: []
+    expectedOutcome: "The agent escalates / hands the rep off to a team lead with context, rather than attempting a knowledge answer."
+  - utterance: "escalate this please im stuck"
+    expectedTopic: "escalate_to_lead"
+    expectedActions: []
+    expectedOutcome: "The agent escalates / hands the rep off to a team lead with context, rather than attempting a knowledge answer."
+  - utterance: "can u get me a supervisor"
+    expectedTopic: "escalate_to_lead"
+    expectedActions: []
+    expectedOutcome: "The agent escalates / hands the rep off to a team lead with context, rather than attempting a knowledge answer."
