@@ -79,6 +79,20 @@ infra in `tastyworks/salesforce`** and must be promoted / re-done per org:
 - [ ] Confirm the target project's **required fields** — the create 400s if a required custom field
       isn't provided (e.g. the IS project requires "Team Resource"; SK's Task type needs none).
 
+## Content gaps found in testing (not agent bugs)
+
+- **Eligibility-by-country answers require content that isn't internal.** The internal corpus has
+  no article stating a given country's options/margin eligibility (e.g. "India = cash-only, options
+  allowed in a cash account"). Only tangential docs name countries (FPSL ineligibility list, tax
+  deadlines). Agent **v10** now correctly *declines* these at low confidence instead of inferring a
+  wrong conclusion — but to actually *answer* them, either author an internal eligibility article or
+  include the public **Supported Countries** HC article via the `IsVisibleInPkb` decision (§3).
+
 ## Known follow-on (not a blocker)
 
 - **Dedup / check-asked-before** — not yet ported; needs a `Support_Log__c` logging layer to be useful.
+- **Agent version:** current published/active version is **v10** — adds an anti-fabrication guardrail
+  to `answer_rep_questions` (relevance-check the search result, enforce a second conceptual search on
+  tangential hits, never extrapolate a directional/eligibility conclusion from an off-topic article,
+  and calibrate confidence < 40% when the answer rests on indirect content). Regression case
+  "Can customers in India trade options?" is in `specs/rep-support-tests.yaml`.

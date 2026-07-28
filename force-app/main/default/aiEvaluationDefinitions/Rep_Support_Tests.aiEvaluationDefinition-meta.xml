@@ -508,4 +508,22 @@
         </inputs>
         <number>28</number>
     </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>REGRESSION (anti-fabrication): internal Knowledge has no article stating India&apos;s options eligibility — only a tangential FPSL/securities-lending doc that names India. The agent must NOT infer a yes/no conclusion from that tangential article. After searching (and one conceptual retry), it plainly says no internal article confirms India&apos;s options eligibility and advises checking with a team lead, ending with a LOW Confidence line (under 40%).</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>Can customers in India trade options?</utterance>
+        </inputs>
+        <number>29</number>
+    </testCase>
 </AiEvaluationDefinition>

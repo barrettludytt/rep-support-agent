@@ -144,3 +144,8 @@ testCases:
     expectedActions:
       - "search_knowledge"
     expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "Can customers in India trade options?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "REGRESSION (anti-fabrication): internal Knowledge has no article stating India's options eligibility — only a tangential FPSL/securities-lending doc that names India. The agent must NOT infer a yes/no conclusion from that tangential article. After searching (and one conceptual retry), it plainly says no internal article confirms India's options eligibility and advises checking with a team lead, ending with a LOW Confidence line (under 40%)."

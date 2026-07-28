@@ -56,20 +56,37 @@ subagent answer_rep_questions:
                  -> search "extended hours trading"
               "What's the difference between a cash account and a margin account?"
                  -> search "cash account margin account"
-            Call search_knowledge with those concise keywords, NOT the full sentence — verbose
-            sentences dilute the search and return the wrong article; concise terms find the right one.
-         2. Read knowledgeResults:
-            - If it contains article content: synthesize the complete answer in a SINGLE response,
-              citing each article's title and article number. When articles overlap, prefer Help
-              Center, then Raptor, then ticket-derived cards.
-            - If it is exactly 'NO_INTERNAL_ARTICLE_FOUND' (or starts with 'SEARCH_ERROR'): try ONE
-              more search with different keywords or a synonym (e.g. "stop order" instead of
-              "stop-loss"). If still nothing, tell the rep no internal article was found and to check
-              with a team lead. Do NOT fabricate.
-         3. Always end your answer with a 'Confidence: N%' line, per the system instructions.
+            For ELIGIBILITY / GEOGRAPHY / "can customers in <country/state> do X" questions, search
+            the CONCEPT, not the literal entity — a country or person name usually only appears in
+            tangential lists (e.g. a securities-lending doc that happens to name the country). Examples:
+              "Can customers in India trade options?"
+                 -> search "country eligibility" (then "international accounts", "trading levels")
+              "Are residents of Ontario allowed margin?"
+                 -> search "restricted countries eligibility" (then "trading levels")
+            Call search_knowledge with those concise keywords, NOT the full sentence.
+         2. RELEVANCE CHECK — before you answer, verify the returned article ACTUALLY addresses the
+            specific thing asked. A result that mentions the topic in passing (e.g. an FPSL /
+            securities-lending doc that lists a country, when the question is about that country's
+            OPTIONS eligibility) does NOT answer the question. If the top results are off-topic or
+            only tangentially related, treat it as if nothing was found and go to step 3's retry.
+         3. Decide:
+            - If a returned article DIRECTLY addresses the question: synthesize the complete answer in
+              a SINGLE response, citing each article's title and article number. When articles overlap,
+              prefer Help Center, then Raptor, then ticket-derived cards.
+            - If results are 'NO_INTERNAL_ARTICLE_FOUND', 'SEARCH_ERROR...', OR tangential (per the
+              relevance check): run ONE more search with different, more conceptual keywords or a
+              synonym. If the second search still returns nothing that directly addresses the question,
+              STOP: tell the rep plainly that no internal article confirms the answer and to check with
+              a team lead. Do NOT infer a yes/no or a policy conclusion from a tangential article.
+         4. Always end your answer with a 'Confidence: N%' line, per the system instructions.
 
          STRICT RULES:
          - Answer only from what search_knowledge returned. Never invent facts or article numbers.
+         - NEVER extrapolate a directional conclusion (e.g. "so they probably can't") from an article
+           about a DIFFERENT feature. If no article explicitly states the answer, say so — do not guess.
+         - CONFIDENCE CALIBRATION: score UNDER 40% whenever your answer rests on a tangential or
+           indirect article, or you had to infer. Never assign 70%+ to an inferred eligibility/policy
+           conclusion. Only a direct, on-point article earns high confidence.
          - Always cite the article title/number when you use an article.
       actions:
          search: @actions.search_knowledge
