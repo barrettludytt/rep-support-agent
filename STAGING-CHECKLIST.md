@@ -96,26 +96,30 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 
 ## 7. Ticket logging (`file_bug_to_jira`) → posts to Slack #help-center-updates
 
-**Pivot (decision):** the agent no longer creates Jira directly — direct Jira REST needed a personal
-Atlassian credential / service-user OAuth that isn't available. Instead, when a ticket is needed the
-agent **posts the ticket contents to the `#help-center-updates` Slack channel**; the team flags it as
-a Jira ticket from Slack, and it doubles as the content team's audit trail.
+**Pivot (decision):** the agent no longer creates Jira directly (that needed a personal Atlassian
+credential / service-user OAuth we don't have). Instead, when a ticket is needed the agent **posts the
+ticket to the `#help-center-updates` Slack channel**; the team flags it as a Jira ticket from Slack, and
+it doubles as the content team's audit trail.
 
-Chain: `file_bug_to_jira` sub-agent → `apex://SFSupport_SlackTicketPost` → `callout:Slack_HelpCenterUpdates`
-(a Slack **Incoming Webhook** — a channel-scoped URL secret, not user OAuth).
+**Mechanism (final): the native Agentforce Slack action** — no webhook, no Apex, no new credential.
+`file_bug_to_jira` sub-agent → `SendMessageToSlackChannel` (`source: Slack__SendMessageToSlackChannel`,
+`target: slack://slackAgentDynamic__SendMessageToSlackChannel`), posting to `#help-center-updates`
+(channel ID `C0ARLTST3C2`, hardcoded in the sub-agent).
 
-- [ ] **`Slack_HelpCenterUpdates` Named Credential** — set its `<endpoint>` to the Incoming Webhook URL
-      for `#help-center-updates` (Slack → Apps → Incoming Webhooks → add to the channel → copy URL).
-      Committed as a **TEMPLATE with a placeholder** — fill the real URL in Setup per org; never commit it.
-- [ ] Grant the agent run-as user + reps **Apex-execute on `SFSupport_SlackTicketPost`**.
-- [ ] After the URL is set, preview "file a bug…" and confirm a formatted ticket lands in
-      `#help-center-updates`.
+- [ ] **Slack ↔ Agentforce integration must be enabled** (the "General Slack Actions" set). It's what
+      exposes `SendMessageToSlackChannel`. Gotcha: those bundled actions import with a broken `target`
+      (`slack://X`); the correct form is `slack://slackAgentDynamic__X` — already fixed in our bundle.
+- [ ] **Reconnect Slack** on the active agent version and confirm the connection can post to
+      `#help-center-updates`. Grant the agent user access to the Slack action.
+- [ ] Preview "file a bug…" and confirm the formatted ticket lands in `#help-center-updates`.
 
-> The old Jira-callout infra (`SFSupport_JiraClient`, flow `AF_SFSupport_Create_Jira_Bug`,
-> `SF_Support_Agent_Setting__mdt`, `Jira_Egress`) is **no longer in the agent path** — left in the repo
-> for reference/history; safe to remove if the Slack path is the permanent choice.
-> Cosmetic: the sub-agent is still internally labeled `file_bug_to_jira` (kept to avoid breaking the
-> router + committed test suites); rename to `log_ticket_to_slack` in a future batched change if desired.
+> We removed the whole "General Slack" subagent Salesforce adds (it also brings create-channel,
+> archive, add-users, share-canvas, etc. — a rep agent must NOT have those). Only the single
+> send-message action is kept, folded into `file_bug_to_jira`.
+> **Deprecated / out of the agent path** (safe to delete): the webhook approach `SFSupport_SlackTicketPost`
+> + `Slack_HelpCenterUpdates` NC, and the old Jira-callout infra (`SFSupport_JiraClient`, flow
+> `AF_SFSupport_Create_Jira_Bug`, `SF_Support_Agent_Setting__mdt`, `Jira_Egress`). Left in the repo for history.
+> Cosmetic: sub-agent still labeled `file_bug_to_jira` (kept to avoid breaking the router + test suites).
 
 ## Data Library grounding (added — needs Builder verification)
 

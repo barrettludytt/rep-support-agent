@@ -20,33 +20,34 @@ system:
 # Data Library grounding (native Agentforce knowledge retrieval).
 # Binds the "Rep Support KB" Data Library to AnswerQuestionsWithKnowledge calls.
 # devTT library ID: 1JDdi000001WtIXGA0 — update rag_feature_config_id per org.
+
 knowledge:
    rag_feature_config_id: "ARFPC_1JDdi000001WtIXGA0"
    citations_enabled: True
 
 start_agent topic_selector:
-   description: "Routes rep questions to the right sub-agent"
-   reasoning:
-      instructions: |
-         Invoke exactly ONE transition per turn — never more than one.
+    description: "Routes rep questions to the right sub-agent"
+    reasoning:
+        instructions: |
+            Invoke exactly ONE transition per turn — never more than one.
 
-         - Route to `escalate` if the rep asks for a human, lead, or admin, says "escalate",
-           or is clearly stuck/urgent and needs a person.
-         - Route to `file_bug` if the rep is reporting a confirmed Salesforce defect/bug to log
-           (e.g. "this is broken", "file a bug", "something's wrong with X in Salesforce").
-         - Route to `draft_article` if the rep offers new content to document
-           ("add this to the KB", "document this", "we should write this up").
-         - Route to `answer_questions` for everything else: how-to, policy, "how do I",
-           "why is X happening", "what does Y do".
-      actions:
-         answer_questions: @utils.transition to @subagent.answer_rep_questions
-            description: "Answer the rep's question from Salesforce Knowledge (Help Center + internal docs)"
-         escalate: @utils.transition to @subagent.escalate_to_lead
-            description: "Escalate to a team lead when the agent cannot resolve"
-         file_bug: @utils.transition to @subagent.file_bug_to_jira
-            description: "File a Jira bug for a confirmed Salesforce defect"
-         draft_article: @utils.transition to @subagent.draft_knowledge_article
-            description: "Draft a new internal knowledge article for a novel resolved situation"
+            - Route to `escalate` if the rep asks for a human, lead, or admin, says "escalate",
+              or is clearly stuck/urgent and needs a person.
+            - Route to `file_bug` if the rep is reporting a confirmed Salesforce defect/bug to log
+              (e.g. "this is broken", "file a bug", "something's wrong with X in Salesforce").
+            - Route to `draft_article` if the rep offers new content to document
+              ("add this to the KB", "document this", "we should write this up").
+            - Route to `answer_questions` for everything else: how-to, policy, "how do I",
+              "why is X happening", "what does Y do".
+        actions:
+            answer_questions: @utils.transition to @subagent.answer_rep_questions
+                description: "Answer the rep's question from Salesforce Knowledge (Help Center + internal docs)"
+            escalate: @utils.transition to @subagent.escalate_to_lead
+                description: "Escalate to a team lead when the agent cannot resolve"
+            file_bug: @utils.transition to @subagent.file_bug_to_jira
+                description: "File a Jira bug for a confirmed Salesforce defect"
+            draft_article: @utils.transition to @subagent.draft_knowledge_article
+                description: "Draft a new internal knowledge article for a novel resolved situation"
 
 subagent answer_rep_questions:
    label: "answer_rep_questions"
@@ -120,6 +121,7 @@ subagent answer_rep_questions:
             with query=...
             description: "FALLBACK: Apex SOSL search over Salesforce Knowledge (Help Center + internal docs) when the Data Library returns nothing"
 
+
    actions:
       search_knowledge:
          description: "FALLBACK Apex search over Salesforce Knowledge — the full published Help Center plus internal Raptor/ticket articles — used when the Data Library returns nothing."
@@ -165,55 +167,63 @@ subagent answer_rep_questions:
 
 subagent file_bug_to_jira:
    label: "file_bug_to_jira"
-   description: "Logs a support ticket (a confirmed Salesforce defect, or a Help Center / content fix) to the #help-center-updates Slack channel so the team can flag it as a Jira ticket from Slack and the content team has an audit trail. Does NOT create Jira directly."
+   description: "Logs a support ticket (a confirmed Salesforce defect, or a Help Center / content fix) to the #help-center-updates Slack channel so the team can flag it as a Jira ticket and the content team has an audit trail. Does NOT create Jira directly."
 
    reasoning:
       instructions: |
          You log a support ticket to the #help-center-updates Slack channel. tastytrade does not
-         create Jira directly from here — the team flags the Slack post as a Jira ticket, and the
-         post doubles as the content department's audit record.
+         create Jira directly here — the team flags the Slack post as a Jira ticket, and the post
+         doubles as the content department's audit record.
 
          WORKFLOW:
          1. Gather a one-line summary and a full description (what happened, steps to reproduce, any
             error text — or, for a content request, the Help Center change needed). Ask the rep for
             anything missing.
-         2. Briefly confirm the summary with the rep, then call post_ticket.
-         3. If success is true: tell the rep the ticket was posted to #help-center-updates for review
-            and Jira flagging.
-         4. If success is false: tell the rep it could not be posted and report the reason.
+         2. Build the Slack message in mrkdwn, in this shape:
+              ":ticket: *New ticket for review* - flag as Jira from Slack\n*Type:* <Bug or Content update>\n*Summary:* <summary>\n*Details:* <full description>\n_Logged by the Rep Support agent._"
+         3. Call send_ticket with that message. ALWAYS post to #help-center-updates: pass
+            channelId = "C0ARLTST3C2" (never any other channel). The rep will be asked to confirm the send.
+         4. If it succeeds: tell the rep the ticket was posted to #help-center-updates for review and
+            Jira flagging, and share the message link (messageUrl) if returned.
+         5. If it fails: tell the rep it could not be posted and report the reason.
 
          STRICT RULES:
          - Only log genuine defects or concrete content/Help-Center requests — not how-to questions.
-         - Only claim it was posted if success is true; never fabricate success.
+         - ALWAYS use channelId "C0ARLTST3C2" (#help-center-updates); never another channel.
+         - Only claim it was posted if the send actually succeeds; never fabricate success.
          - Do not add a 'Confidence: N%' line — that applies only to knowledge answers.
       actions:
-         post: @actions.post_ticket
-            with summary=...
-            with description=...
-            description: "Post the ticket to the #help-center-updates Slack channel"
+         send_ticket: @actions.SendMessageToSlackChannel
+            with channelId=...
+            with message=...
+            description: "Post the formatted ticket to #help-center-updates (channelId C0ARLTST3C2)"
 
    actions:
-      post_ticket:
-         description: "Post a bug/content ticket to the #help-center-updates Slack channel (via incoming webhook) for the team to flag as Jira and for content-team audit."
+      SendMessageToSlackChannel:
+         description: "Sends a message to a Slack channel (plaintext or mrkdwn). Used here to post a support ticket to #help-center-updates for Jira flagging and content-team audit."
+         label: "Send Message to a Slack Channel"
+         require_user_confirmation: True
+         include_in_progress_indicator: True
+         progress_indicator_message: "Posting the ticket to Slack..."
+         source: "Slack__SendMessageToSlackChannel"
+         target: "slack://slackAgentDynamic__SendMessageToSlackChannel"
          inputs:
-            summary: string
-               description: "One-line summary of the issue or content request"
+            channelId: string
+               description: "The Slack Channel ID to post to. Always #help-center-updates: C0ARLTST3C2."
                is_required: True
-               is_user_input: False
-            description: string
-               description: "Full description — what happened, steps to reproduce, error text, or the content change requested"
+               is_user_input: True
+            message: string
+               description: "The formatted ticket, as plaintext or Slack mrkdwn."
                is_required: True
-               is_user_input: False
-            ticketType: string
-               description: "Type of ticket: 'Bug' for a defect, 'Content update' for a Help Center / content request"
-               is_required: False
-               is_user_input: False
+               is_user_input: True
          outputs:
-            success: boolean
-               description: "True if the ticket was posted to Slack"
-            formattedResponse: string
-               description: "Confirmation message"
-         target: "apex://SFSupport_SlackTicketPost"
+            messageUrl: string
+               description: "The Slack message URL for the posted ticket."
+               is_displayable: False
+            messageTs: string
+               description: "The timestamp of the posted message."
+               is_displayable: False
+
 
 subagent draft_knowledge_article:
    label: "draft_knowledge_article"
@@ -245,6 +255,7 @@ subagent draft_knowledge_article:
             with InputTitle=...
             with InputSummary=...
             description: "Create a draft internal knowledge article"
+
 
    actions:
       create_draft:
