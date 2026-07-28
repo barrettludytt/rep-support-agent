@@ -32,14 +32,17 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 - [ ] Grant reps **Apex-execute** on `RepKnowledgeSearch`, `KnowledgeDraftBuilder`, `SFSupport_JiraClient`.
 - [ ] Grant reps **Knowledge read** on every category the agent should answer from (public HC +
       internal Raptor/ticket categories).
-- [ ] **Knowledge visibility — DECIDED (implemented).** `RepKnowledgeSearch` searches **all published
-      articles** — the public Help Center (`IsVisibleInPkb = true`) AND internal Raptor/ticket docs
-      (`IsVisibleInPkb = false`). This is an INTERNAL rep tool, so it grounds on everything a customer
-      can see plus internal material. No `IsVisibleInPkb` filter, and no article import needed (prod
-      already has the full HC).
-      - ⚠️ **Customer-facing bots must do the INVERSE:** any customer-facing agent that searches
-        Knowledge must filter to `IsVisibleInPkb = true` ONLY, so internal docs can never leak to a
-        customer. Do not reuse `RepKnowledgeSearch` as-is for a customer bot.
+- [ ] **Knowledge scope — DECIDED (implemented).** `RepKnowledgeSearch` searches **all published
+      (Online) articles** with no visibility/category filter — both public Help Center content AND
+      non-public internal KB articles. This is an INTERNAL, employee-only agent, so it grounds on
+      everything a customer can see plus internal material. No article import needed (prod already
+      has the full HC).
+      - Non-public rep articles are isolated from the customer-facing Help Center by tagging them
+        with a dedicated **non-public data category** (the Help Center / production customer bot only
+        surface public-category content). That isolation lives on the Help Center side, not in this
+        search — this agent is employee-only and can't expose anything to customers.
+      - Requirement: **reps must have Knowledge data-category visibility** to the internal category,
+        or SOSL won't return those articles.
 - [ ] Confirm the org-wide email address `no-reply@tastytrade.com` exists (used by the digest);
       then schedule the weekly digest **only at rollout**:
       `System.schedule('Rep Support Weekly Digest','0 0 8 ? * MON *', new RepAgentWeeklyDigest());`

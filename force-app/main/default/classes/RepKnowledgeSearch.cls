@@ -1,11 +1,13 @@
 /**
  * Native Salesforce Knowledge search for the Rep Support (Lightning) agent.
- * SOSL over Knowledge__kav across ALL published articles — the public Help Center
- * (IsVisibleInPkb=true) AND internal Raptor/ticket docs (IsVisibleInPkb=false). This is
- * an INTERNAL rep tool, so it grounds on everything a customer can see plus internal
- * material. (A customer-facing bot must do the inverse: filter to IsVisibleInPkb=true
- * only, never internal docs.) No Data Cloud / Data Library. Returns top article bodies
- * for the agent to synthesize an answer + cite.
+ * SOSL over Knowledge__kav across ALL published (Online) articles — both the public
+ * Help Center content AND non-public internal KB articles. This is an INTERNAL
+ * (employee-only Agentforce) rep tool, so it grounds on everything a customer can see
+ * plus internal material. Non-public articles are kept off the customer-facing Help
+ * Center by tagging them with a dedicated non-public DATA CATEGORY (that's the isolation
+ * lever — not this search). Reps must have data-category visibility to that internal
+ * category for SOSL to return those articles. No Data Cloud / Data Library. Returns top
+ * article bodies for the agent to synthesize an answer + cite.
  */
 public with sharing class RepKnowledgeSearch {
 
