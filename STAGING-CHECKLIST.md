@@ -13,7 +13,7 @@ published + previewed in DEVTT first** — they don't validate like ordinary met
       distillation + anti-fabrication guardrail in `answer_rep_questions`)
 - [ ] Flow: `AF_SFSupport_Create_Jira_Bug` (target of the `file_bug_to_jira` sub-agent)
 - [ ] CustomMetadata: `SF_Support_Agent_Setting.Default` (Jira project/issue-type/active config)
-- [ ] NamedCredential: `Jira_Egress` — **template only, no secret** (fill username/token per org; see §6)
+- [ ] NamedCredential: `Jira_Egress` — **template only, no secret** (fill username/token per org; see §7)
 - [ ] Bot: `Rep_Support_Lightning`
 - [ ] (Optional) AiEvaluationDefinition: `Rep_Support_Tests` (bulk regression suite; see `specs/`)
 
@@ -29,9 +29,11 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 
 ## 3. Post-deploy MANUAL steps
 
-- [ ] Grant reps **Apex-execute** on `RepKnowledgeSearch`, `KnowledgeDraftBuilder`, `SFSupport_JiraClient`.
-- [ ] Grant reps **Knowledge read** on every category the agent should answer from (public HC +
-      internal Raptor/ticket categories).
+- [ ] **Rep permission set — NOT yet built/committed.** Create a `Rep_Support_Agent` permission set
+      (or fold into the reps' profile) granting **Apex-execute** on `RepKnowledgeSearch`,
+      `KnowledgeDraftBuilder`, `SFSupport_JiraClient`, and **Knowledge read** on every category the
+      agent answers from (public HC + internal categories). Assign to the rep users. Until this
+      exists, a non-admin rep will hit permission errors.
 - [ ] **Knowledge scope — DECIDED (implemented).** `RepKnowledgeSearch` searches **all published
       (Online) articles** with no visibility/category filter — both public Help Center content AND
       non-public internal KB articles. This is an INTERNAL, employee-only agent, so it grounds on
@@ -55,15 +57,28 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 ## 4. Dependencies that must exist in the target org
 
 - [ ] Apex `KnowledgeDraftBuilder` + `Knowledge__kav` with the `TC_Description__c` and `TC_Html_File` fields.
-- [ ] Jira-maker infra (see **section 6**) for the `file_bug_to_jira` topic.
+- [ ] Jira-maker infra (see **section 7**) for the `file_bug_to_jira` topic.
 - [ ] Published Knowledge articles (public HC + internal) — prod already has these (see step 3).
 
 ## 5. Smoke test after deploy
 
 - [ ] Preview the agent → a known rep question returns a **cited** answer ending in a `Confidence: N%` line.
-- [ ] Try "file a bug…", "document this…", and "I need a lead" to exercise the sub-agents.
+- [ ] **Live multi-turn preview — NOT yet done in any org (do before rollout).** The bulk test suite
+      (§6) fires only the first turn, so the action-completing paths are unverified end-to-end. In the
+      Agentforce Builder preview, run each to completion:
+      - "file a bug…" → supply the summary/details when asked → confirm a **real Jira key** comes back.
+      - "document this…" → confirm the proposal → confirm a **DRAFT** article is created (not published).
+      - "I need a lead" → confirm the escalation hand-off message.
 
-## 6. Jira-ticket maker (`file_bug_to_jira`) — must be dealt with per environment
+## 6. Automated regression suite (already passing)
+
+- [ ] `specs/rep-support-tests.yaml` → `Rep_Support_Tests` (29 cases). Create/run with:
+      `sf agent test create --spec specs/rep-support-tests.yaml --api-name Rep_Support_Tests --force-overwrite --target-org <org>`
+      then `sf agent test run --api-name Rep_Support_Tests --target-org <org>`.
+      Last run in devtt on **v11 = 29/29** (topic + action routing + output validation), including the
+      "Can customers in India trade options?" grounding regression. Re-run after promoting to a new org.
+
+## 7. Jira-ticket maker (`file_bug_to_jira`) — must be dealt with per environment
 
 The chain is `file_bug_to_jira` → flow `AF_SFSupport_Create_Jira_Bug` → `SFSupport_JiraClient`
 → `callout:Jira_Egress`. Getting it firing in devtt required fixes that are **George's shared

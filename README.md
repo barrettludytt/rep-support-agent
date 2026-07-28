@@ -1,15 +1,23 @@
 # Rep Support Agent (Salesforce Agentforce)
 
-A native Salesforce **Agentforce Employee Agent** that answers frontline support reps'
-questions from internal Knowledge, files bugs, drafts articles, and escalates — built and
+A native Salesforce **Agentforce Employee Agent** (employee-only) that answers frontline support
+reps' questions from Salesforce Knowledge, files bugs, drafts articles, and escalates — built and
 validated in a sandbox.
 
 ## What makes it work
 
-- **Grounded on a custom Apex search action** (`RepKnowledgeSearch`, SOSL over internal-only
-  Knowledge articles) instead of a Data Cloud Data Library. The Data Library path never bound /
-  retrieved in this org, so the agent grounds through Apex and **actually answers** — internal-only
-  by construction (`IsVisibleInPkb=false`).
+- **Grounded on a custom Apex search action** (`RepKnowledgeSearch`, SOSL over `Knowledge__kav`)
+  instead of a Data Cloud Data Library. The Data Library path never bound / retrieved in this org,
+  so the agent grounds through Apex and **actually answers**.
+  - Searches **all published (Online) articles** — the public Help Center **plus** non-public
+    internal KB articles. It's an employee-only agent, so it grounds on everything a customer can
+    see plus internal material. (Non-public articles are kept off the customer-facing Help Center by
+    a dedicated non-public **data category** — that isolation lives on the Help Center side, not in
+    this search. A customer-facing bot is a separate system.)
+  - **Query distillation** (search concise concepts, not the full sentence) + an **anti-fabrication
+    guardrail** (relevance-check the result, retry once with conceptual keywords on a tangential hit,
+    never extrapolate an eligibility/policy conclusion from an off-topic article, calibrate
+    confidence < 40% on indirect content).
 - **Multi-subagent router** (`Atlas__ConcurrentMultiAgentOrchestration`):
   - `answer_rep_questions` — cited answers with a self-assessed **confidence score**, using a
     source-authority hierarchy (Help Center → Raptor/Confluence → ticket-derived cards).
@@ -29,12 +37,17 @@ and published with `sf agent publish authoring-bundle`.
 
 ```
 force-app/main/default/
-  aiAuthoringBundles/Rep_Support_Lightning/   Agent Script source (edit here)
-  genAiPlannerBundles/Rep_Support_Lightning_v6/  Compiled planner (published output)
-  bots/Rep_Support_Lightning/                 Bot + versions
-  classes/                                    RepKnowledgeSearch, RepAgentWeeklyDigest
-docs/Support-Knowledge-Agent.md               Full write-up
-STAGING-CHECKLIST.md                          Promotion runbook + post-deploy steps
+  aiAuthoringBundles/Rep_Support_Lightning/       Agent Script source (edit here)
+  genAiPlannerBundles/Rep_Support_Lightning_v11/  Compiled planner (published output, current)
+  bots/Rep_Support_Lightning/                     Bot + versions
+  classes/                                        RepKnowledgeSearch, KnowledgeDraftBuilder,
+                                                  SFSupport_JiraClient, RepAgentWeeklyDigest
+  flows/AF_SFSupport_Create_Jira_Bug             Jira-bug flow (file_bug_to_jira target)
+  customMetadata/SF_Support_Agent_Setting.Default Jira project/issue-type/active config
+  namedCredentials/Jira_Egress                    Jira Basic-auth NC — TEMPLATE, no token
+specs/                                            Bulk test suite (AiEvaluationDefinition spec, 29 cases)
+docs/Support-Knowledge-Agent.md                   Full write-up
+STAGING-CHECKLIST.md                              Promotion runbook + post-deploy steps
 ```
 
 ## Build / publish
