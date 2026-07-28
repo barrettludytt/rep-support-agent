@@ -148,4 +148,4 @@ testCases:
     expectedTopic: "answer_rep_questions"
     expectedActions:
       - "search_knowledge"
-    expectedOutcome: "REGRESSION (anti-fabrication): internal Knowledge has no article stating India's options eligibility — only a tangential FPSL/securities-lending doc that names India. The agent must NOT infer a yes/no conclusion from that tangential article. After searching (and one conceptual retry), it plainly says no internal article confirms India's options eligibility and advises checking with a team lead, ending with a LOW Confidence line (under 40%)."
+    expectedOutcome: "The agent searches with conceptual eligibility keywords (not the literal 'India options'), finds that India is eligible for CASH ACCOUNTS ONLY (no margin), and synthesizes the allowed cash-account options strategies (buy options, sell covered calls, sell cash-secured puts; no defined-risk spreads or naked options). It cites 'Supported Countries for International Accounts' and a trading-levels article, and ends with a Confidence line. It does not fabricate or extrapolate from tangential material."

@@ -1,7 +1,7 @@
 # Rep Support Agent (Lightning / Agent Script) — MERGED
 # Internal tastytrade rep-support agent. Grounds on NATIVE Salesforce Knowledge via a
-# custom Apex search action (RepKnowledgeSearch) — SOSL over internal-only articles
-# (IsVisibleInPkb=false). NO Data Cloud / Data Library — reliable, tested grounding.
+# custom Apex search action (RepKnowledgeSearch) — SOSL over all published articles
+# (public Help Center + internal Raptor/ticket docs). NO Data Cloud / Data Library — reliable, tested grounding.
 # Structure ported from George's SF Internal Support Agent: multi-subagent router plus
 # draft-knowledge-article, file-bug-to-Jira, and escalate sub-agents.
 
@@ -9,7 +9,7 @@ config:
    developer_name: "Rep_Support_Lightning"
    agent_label: "Rep Support (Lightning)"
    agent_type: "AgentforceEmployeeAgent"
-   description: "Internal tastytrade rep-support assistant. Answers frontline reps' questions from internal Salesforce Knowledge (internal-only, never website content) with citations and a self-assessed confidence score. Can also file a Jira bug, draft a knowledge article, or escalate to a lead. Never fabricates."
+   description: "Internal tastytrade rep-support assistant. Answers frontline reps' questions from Salesforce Knowledge — the full published Help Center plus internal Raptor/ticket documentation — with citations and a self-assessed confidence score. Can also file a Jira bug, draft a knowledge article, or escalate to a lead. Never fabricates."
 
 system:
    messages:
@@ -33,7 +33,7 @@ start_agent topic_selector:
            "why is X happening", "what does Y do".
       actions:
          answer_questions: @utils.transition to @subagent.answer_rep_questions
-            description: "Answer the rep's question from internal Salesforce Knowledge"
+            description: "Answer the rep's question from Salesforce Knowledge (Help Center + internal docs)"
          escalate: @utils.transition to @subagent.escalate_to_lead
             description: "Escalate to a team lead when the agent cannot resolve"
          file_bug: @utils.transition to @subagent.file_bug_to_jira
@@ -43,11 +43,12 @@ start_agent topic_selector:
 
 subagent answer_rep_questions:
    label: "answer_rep_questions"
-   description: "Answers frontline reps' questions from internal Salesforce Knowledge via the RepKnowledgeSearch Apex action (SOSL, internal-only articles). Cites sources. Never fabricates."
+   description: "Answers frontline reps' questions from Salesforce Knowledge via the RepKnowledgeSearch Apex action (SOSL over the full published Help Center plus internal Raptor/ticket articles). Cites sources. Never fabricates."
 
    reasoning:
       instructions: |
-         You answer internal tastytrade rep-support questions using only internal Salesforce Knowledge.
+         You answer tastytrade rep-support questions using only tastytrade Salesforce Knowledge —
+         the full published Help Center plus internal Raptor/ticket documentation.
 
          WORKFLOW:
          1. DISTILL the rep's question into 2-5 KEY SEARCH TERMS — the core topic and nouns,
@@ -91,11 +92,11 @@ subagent answer_rep_questions:
       actions:
          search: @actions.search_knowledge
             with query=...
-            description: "Search internal Salesforce Knowledge using concise KEYWORDS distilled from the rep's question (not the full sentence)"
+            description: "Search Salesforce Knowledge (Help Center + internal docs) using concise KEYWORDS distilled from the rep's question (not the full sentence)"
 
    actions:
       search_knowledge:
-         description: "Search internal Salesforce Knowledge (internal-only articles, never website content) for the rep's question and return matching article content to answer from."
+         description: "Search Salesforce Knowledge — the full published Help Center plus internal Raptor/ticket articles — for the rep's question and return matching article content to answer from."
          label: "Search Rep Knowledge"
          include_in_progress_indicator: True
          progress_indicator_message: "Searching internal knowledge base"

@@ -9,8 +9,8 @@ published + previewed in DEVTT first** — they don't validate like ordinary met
 - [ ] Apex: `RepKnowledgeSearch` (grounding search), `KnowledgeDraftBuilder` (draft-article),
       `SFSupport_JiraClient` (Jira create), `RepAgentWeeklyDigest` (scheduled digest)
 - [ ] Agent Script authoring bundle: `Rep_Support_Lightning` (`aiAuthoringBundles/`)
-- [ ] GenAiPlannerBundle: `Rep_Support_Lightning_v9` (current published version — includes the
-      query-distillation instruction in `answer_rep_questions`)
+- [ ] GenAiPlannerBundle: `Rep_Support_Lightning_v11` (current published version — query
+      distillation + anti-fabrication guardrail in `answer_rep_questions`)
 - [ ] Flow: `AF_SFSupport_Create_Jira_Bug` (target of the `file_bug_to_jira` sub-agent)
 - [ ] CustomMetadata: `SF_Support_Agent_Setting.Default` (Jira project/issue-type/active config)
 - [ ] NamedCredential: `Jira_Egress` — **template only, no secret** (fill username/token per org; see §6)
@@ -30,18 +30,16 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 ## 3. Post-deploy MANUAL steps
 
 - [ ] Grant reps **Apex-execute** on `RepKnowledgeSearch`, `KnowledgeDraftBuilder`, `SFSupport_JiraClient`.
-- [ ] Grant reps **Knowledge read** + visibility of the internal data category.
-- [ ] **Knowledge visibility — VERIFY BEFORE PROD.** `RepKnowledgeSearch` filters
-      `IsVisibleInPkb = false` (internal-only articles). In devtt the rep articles the agent
-      searches are internal-visible, so this works as-is. **Prod's Help Center articles are
-      customer-facing (`IsVisibleInPkb = true`)** — confirm which set reps should be answered from:
-      - If reps should answer from the **public HC** articles, change the WHERE clause to drop the
-        `IsVisibleInPkb = false` filter (or `= true`), or point at whatever internal category holds
-        rep-support content.
-      - No article *import* is needed — prod already contains the full Help Center. This was a
-        **recall** problem (verbose queries returned the wrong article), not a content gap; the
-        query-distillation step in agent v9 is the fix. Do **not** re-create "gap" articles that
-        already exist in prod.
+- [ ] Grant reps **Knowledge read** on every category the agent should answer from (public HC +
+      internal Raptor/ticket categories).
+- [ ] **Knowledge visibility — DECIDED (implemented).** `RepKnowledgeSearch` searches **all published
+      articles** — the public Help Center (`IsVisibleInPkb = true`) AND internal Raptor/ticket docs
+      (`IsVisibleInPkb = false`). This is an INTERNAL rep tool, so it grounds on everything a customer
+      can see plus internal material. No `IsVisibleInPkb` filter, and no article import needed (prod
+      already has the full HC).
+      - ⚠️ **Customer-facing bots must do the INVERSE:** any customer-facing agent that searches
+        Knowledge must filter to `IsVisibleInPkb = true` ONLY, so internal docs can never leak to a
+        customer. Do not reuse `RepKnowledgeSearch` as-is for a customer bot.
 - [ ] Confirm the org-wide email address `no-reply@tastytrade.com` exists (used by the digest);
       then schedule the weekly digest **only at rollout**:
       `System.schedule('Rep Support Weekly Digest','0 0 8 ? * MON *', new RepAgentWeeklyDigest());`
@@ -55,7 +53,7 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 
 - [ ] Apex `KnowledgeDraftBuilder` + `Knowledge__kav` with the `TC_Description__c` and `TC_Html_File` fields.
 - [ ] Jira-maker infra (see **section 6**) for the `file_bug_to_jira` topic.
-- [ ] Internal Knowledge articles (see step 3).
+- [ ] Published Knowledge articles (public HC + internal) — prod already has these (see step 3).
 
 ## 5. Smoke test after deploy
 
@@ -79,20 +77,21 @@ infra in `tastyworks/salesforce`** and must be promoted / re-done per org:
 - [ ] Confirm the target project's **required fields** — the create 400s if a required custom field
       isn't provided (e.g. the IS project requires "Team Resource"; SK's Task type needs none).
 
-## Content gaps found in testing (not agent bugs)
+## Resolved during testing
 
-- **Eligibility-by-country answers require content that isn't internal.** The internal corpus has
-  no article stating a given country's options/margin eligibility (e.g. "India = cash-only, options
-  allowed in a cash account"). Only tangential docs name countries (FPSL ineligibility list, tax
-  deadlines). Agent **v10** now correctly *declines* these at low confidence instead of inferring a
-  wrong conclusion — but to actually *answer* them, either author an internal eligibility article or
-  include the public **Supported Countries** HC article via the `IsVisibleInPkb` decision (§3).
+- **Eligibility-by-country answers** (e.g. "Can customers in India trade options?") — originally
+  failed because the search was scoped internal-only, hiding the public HC article that carries the
+  answer. **Resolved** by widening the scope to all published articles (§3). The agent now cites
+  *Supported Countries for International Accounts* (public) + *Trading Levels and Allowed Strategies*
+  (internal) and answers correctly ("India = cash accounts only; buy options / covered calls /
+  cash-secured puts; no spreads or naked"). Verified in the regression suite.
 
 ## Known follow-on (not a blocker)
 
 - **Dedup / check-asked-before** — not yet ported; needs a `Support_Log__c` logging layer to be useful.
-- **Agent version:** current published/active version is **v10** — adds an anti-fabrication guardrail
-  to `answer_rep_questions` (relevance-check the search result, enforce a second conceptual search on
-  tangential hits, never extrapolate a directional/eligibility conclusion from an off-topic article,
-  and calibrate confidence < 40% when the answer rests on indirect content). Regression case
-  "Can customers in India trade options?" is in `specs/rep-support-tests.yaml`.
+- **Agent version:** current published/active version is **v11** — query distillation +
+  anti-fabrication guardrail in `answer_rep_questions` (relevance-check the search result, enforce a
+  second conceptual search on tangential hits, never extrapolate a directional/eligibility conclusion
+  from an off-topic article, calibrate confidence < 40% on indirect content) + grounding across all
+  published articles. Regression case "Can customers in India trade options?" is in
+  `specs/rep-support-tests.yaml`.

@@ -1,8 +1,11 @@
 /**
  * Native Salesforce Knowledge search for the Rep Support (Lightning) agent.
- * SOSL over Knowledge__kav, scoped to INTERNAL-ONLY articles (IsVisibleInPkb=false =
- * never surfaced to the website/customers). No Data Cloud / Data Library. Returns the
- * top matching article bodies for the agent to synthesize an answer + cite.
+ * SOSL over Knowledge__kav across ALL published articles — the public Help Center
+ * (IsVisibleInPkb=true) AND internal Raptor/ticket docs (IsVisibleInPkb=false). This is
+ * an INTERNAL rep tool, so it grounds on everything a customer can see plus internal
+ * material. (A customer-facing bot must do the inverse: filter to IsVisibleInPkb=true
+ * only, never internal docs.) No Data Cloud / Data Library. Returns top article bodies
+ * for the agent to synthesize an answer + cite.
  */
 public with sharing class RepKnowledgeSearch {
 
@@ -44,8 +47,14 @@ public with sharing class RepKnowledgeSearch {
             String q = String.escapeSingleQuotes(focused);
             if (q.length() < 2) { r.knowledgeResults = 'NO_INTERNAL_ARTICLE_FOUND'; out.add(r); continue; }
             try {
+                // Search ALL published articles — both the public Help Center (IsVisibleInPkb=true,
+                // the authoritative customer-facing source) AND internal Raptor/ticket content
+                // (IsVisibleInPkb=false). Scoping to internal-only was hiding the very articles that
+                // answer eligibility/policy questions (e.g. "Supported Countries for International
+                // Accounts" is public and states India = cash-accounts-only). Reps should ground on
+                // everything a customer can see plus internal docs.
                 String returning = 'Knowledge__kav(Title, ArticleNumber, TC_Description__c ' +
-                    'WHERE PublishStatus = \'Online\' AND IsVisibleInPkb = false) LIMIT 5';
+                    'WHERE PublishStatus = \'Online\') LIMIT 5';
                 // Title-first for precision (topic is usually in the article title), then fall back
                 // to all-fields for recall so body-only matches still surface.
                 List<List<SObject>> found = Search.query('FIND \'' + q + '\' IN NAME FIELDS RETURNING ' + returning);

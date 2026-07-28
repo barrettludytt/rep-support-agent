@@ -28,7 +28,7 @@
         <name>Bot</name>
     </types>
     <types>
-        <members>Rep_Support_Lightning_v10</members>
+        <members>Rep_Support_Lightning_v11</members>
         <name>GenAiPlannerBundle</name>
     </types>
     <version>61.0</version>
