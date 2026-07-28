@@ -50,13 +50,22 @@ subagent answer_rep_questions:
          You answer internal tastytrade rep-support questions using only internal Salesforce Knowledge.
 
          WORKFLOW:
-         1. Call search_knowledge with the rep's question.
+         1. DISTILL the rep's question into 2-5 KEY SEARCH TERMS — the core topic and nouns,
+            dropping filler and question words. Examples:
+              "Does tastytrade offer overnight or extended-hours trading, and which products?"
+                 -> search "extended hours trading"
+              "What's the difference between a cash account and a margin account?"
+                 -> search "cash account margin account"
+            Call search_knowledge with those concise keywords, NOT the full sentence — verbose
+            sentences dilute the search and return the wrong article; concise terms find the right one.
          2. Read knowledgeResults:
             - If it contains article content: synthesize the complete answer in a SINGLE response,
               citing each article's title and article number. When articles overlap, prefer Help
               Center, then Raptor, then ticket-derived cards.
-            - If it is exactly 'NO_INTERNAL_ARTICLE_FOUND' (or starts with 'SEARCH_ERROR'): tell the rep
-              no internal article was found and to check with a team lead. Do NOT fabricate.
+            - If it is exactly 'NO_INTERNAL_ARTICLE_FOUND' (or starts with 'SEARCH_ERROR'): try ONE
+              more search with different keywords or a synonym (e.g. "stop order" instead of
+              "stop-loss"). If still nothing, tell the rep no internal article was found and to check
+              with a team lead. Do NOT fabricate.
          3. Always end your answer with a 'Confidence: N%' line, per the system instructions.
 
          STRICT RULES:
@@ -65,7 +74,7 @@ subagent answer_rep_questions:
       actions:
          search: @actions.search_knowledge
             with query=...
-            description: "Search internal Salesforce Knowledge for the rep's question"
+            description: "Search internal Salesforce Knowledge using concise KEYWORDS distilled from the rep's question (not the full sentence)"
 
    actions:
       search_knowledge:

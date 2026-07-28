@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AiEvaluationDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>A few fresh end-to-end scenarios through the live Rep Support agent.</description>
+    <name>Rep_Support_E2E</name>
+    <subjectName>Rep_Support_Lightning</subjectName>
+    <subjectType>AGENT</subjectType>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>Answers how long to meet a Reg T call and the consequence, cited, with a Confidence line, or honestly says no internal article was found.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>A customer is in a Regulation T call — how long do they have to meet it and what happens if they don&apos;t?</utterance>
+        </inputs>
+        <number>1</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>Explains extended/overnight trading hours and eligible products from an internal article, cited, with a Confidence line, or says no article found.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>Does tastytrade offer overnight or extended-hours trading, and which products can a customer trade then?</utterance>
+        </inputs>
+        <number>2</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>Explains SPX vs SPXW (AM vs PM settlement, weeklies) if covered, cited with a Confidence line; otherwise honestly says no internal article was found and to check with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What&apos;s the difference between SPX and SPXW options for a customer?</utterance>
+        </inputs>
+        <number>3</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>file_bug_to_jira</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>Recognizes a defect report and moves to file a Jira ticket (gathering/confirming details), not a how-to answer.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>The order screen freezes when I add a fourth leg to an iron condor. Can you file that as a bug?</utterance>
+        </inputs>
+        <number>4</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>escalate_to_lead</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>Escalates to a team lead with context; does not try to answer from Knowledge.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>I&apos;m out of my depth on this one — I need to get a manager involved.</utterance>
+        </inputs>
+        <number>5</number>
+    </testCase>
+</AiEvaluationDefinition>

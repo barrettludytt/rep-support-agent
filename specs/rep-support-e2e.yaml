@@ -1,0 +1,25 @@
+name: Rep_Support_E2E
+description: A few fresh end-to-end scenarios through the live Rep Support agent.
+subjectType: AGENT
+subjectName: Rep_Support_Lightning
+testCases:
+  - utterance: "A customer is in a Regulation T call — how long do they have to meet it and what happens if they don't?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions: ["search_knowledge"]
+    expectedOutcome: "Answers how long to meet a Reg T call and the consequence, cited, with a Confidence line, or honestly says no internal article was found."
+  - utterance: "Does tastytrade offer overnight or extended-hours trading, and which products can a customer trade then?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions: ["search_knowledge"]
+    expectedOutcome: "Explains extended/overnight trading hours and eligible products from an internal article, cited, with a Confidence line, or says no article found."
+  - utterance: "What's the difference between SPX and SPXW options for a customer?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions: ["search_knowledge"]
+    expectedOutcome: "Explains SPX vs SPXW (AM vs PM settlement, weeklies) if covered, cited with a Confidence line; otherwise honestly says no internal article was found and to check with a lead."
+  - utterance: "The order screen freezes when I add a fourth leg to an iron condor. Can you file that as a bug?"
+    expectedTopic: "file_bug_to_jira"
+    expectedActions: []
+    expectedOutcome: "Recognizes a defect report and moves to file a Jira ticket (gathering/confirming details), not a how-to answer."
+  - utterance: "I'm out of my depth on this one — I need to get a manager involved."
+    expectedTopic: "escalate_to_lead"
+    expectedActions: []
+    expectedOutcome: "Escalates to a team lead with context; does not try to answer from Knowledge."
