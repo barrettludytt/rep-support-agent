@@ -109,9 +109,14 @@ it doubles as the content team's audit trail.
 - [ ] **Slack ↔ Agentforce integration must be enabled** (the "General Slack Actions" set). It's what
       exposes `SendMessageToSlackChannel`. Gotcha: those bundled actions import with a broken `target`
       (`slack://X`); the correct form is `slack://slackAgentDynamic__X` — already fixed in our bundle.
-- [ ] **Reconnect Slack** on the active agent version and confirm the connection can post to
-      `#help-center-updates`. Grant the agent user access to the Slack action.
-- [ ] Preview "file a bug…" and confirm the formatted ticket lands in `#help-center-updates`.
+- [ ] **ADMIN: connect a Slack Team to the org's Slack integration.** Verified in preview (BotVersion 20)
+      that the whole flow works — routing, ticket formatting, correct channel, confirmation — the send
+      then fails with *"Error fetching Slack token. Make sure you have a connected Slack Team."* That means
+      the Slack↔Agentforce workspace connection isn't authorized yet. An admin must connect/authorize the
+      tastytrade Slack **Team** (Setup → Slack integration → connect workspace) so the Slack actions get a
+      token. This is the only remaining blocker; the agent build is complete and proven.
+- [ ] After the Slack Team is connected, preview "file a bug…" and confirm the ticket lands in
+      `#help-center-updates` (the same test that currently fails on the token will go green).
 
 > We removed the whole "General Slack" subagent Salesforce adds (it also brings create-channel,
 > archive, add-users, share-canvas, etc. — a rep agent must NOT have those). Only the single
