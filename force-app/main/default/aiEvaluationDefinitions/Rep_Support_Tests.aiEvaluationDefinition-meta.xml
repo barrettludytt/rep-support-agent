@@ -148,4 +148,364 @@
         </inputs>
         <number>8</number>
     </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What are the pattern day trader (PDT) rules, and what happens when a customer gets flagged?</utterance>
+        </inputs>
+        <number>9</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How does a customer upgrade their options trading level?</utterance>
+        </inputs>
+        <number>10</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What&apos;s the difference between a cash account and a margin account?</utterance>
+        </inputs>
+        <number>11</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How long does an ACH deposit take before the funds are available to trade?</utterance>
+        </inputs>
+        <number>12</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How does a customer start an ACAT transfer to move their account to tastytrade?</utterance>
+        </inputs>
+        <number>13</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What is buying power reduction, and how is it calculated for a short option?</utterance>
+        </inputs>
+        <number>14</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What happens when a short option position gets assigned early?</utterance>
+        </inputs>
+        <number>15</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How does a customer withdraw funds by wire, and what information do they need (IBAN/SWIFT)?</utterance>
+        </inputs>
+        <number>16</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What are good faith violations and free riding in a cash account?</utterance>
+        </inputs>
+        <number>17</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How does expiration work for a cash-settled index option?</utterance>
+        </inputs>
+        <number>18</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What is a wash sale and how does it affect a customer&apos;s taxes?</utterance>
+        </inputs>
+        <number>19</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How does a customer get approved to trade futures?</utterance>
+        </inputs>
+        <number>20</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What are the trading hours for futures versus equities, including extended hours?</utterance>
+        </inputs>
+        <number>21</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How does a customer fund and trade crypto at tastytrade?</utterance>
+        </inputs>
+        <number>22</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What is Regulation T and how does it apply to a margin account?</utterance>
+        </inputs>
+        <number>23</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How does a customer add or change a beneficiary on their account?</utterance>
+        </inputs>
+        <number>24</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>What happens to a customer&apos;s options and shares during a stock split or corporate action?</utterance>
+        </inputs>
+        <number>25</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How does a customer contribute to an IRA, and what are the contribution limits?</utterance>
+        </inputs>
+        <number>26</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How do stop-loss and stop-limit orders work, and what triggers them?</utterance>
+        </inputs>
+        <number>27</number>
+    </testCase>
+    <testCase>
+        <expectation>
+            <expectedValue>answer_rep_questions</expectedValue>
+            <name>topic_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>[&apos;search_knowledge&apos;]</expectedValue>
+            <name>action_sequence_match</name>
+        </expectation>
+        <expectation>
+            <expectedValue>The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a &apos;Confidence: N%&apos; line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead.</expectedValue>
+            <name>bot_response_rating</name>
+        </expectation>
+        <inputs>
+            <utterance>How does a customer roll an options position, and what does that do to buying power?</utterance>
+        </inputs>
+        <number>28</number>
+    </testCase>
 </AiEvaluationDefinition>

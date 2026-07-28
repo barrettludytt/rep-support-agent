@@ -43,3 +43,104 @@ testCases:
     expectedTopic: "escalate_to_lead"
     expectedActions: []
     expectedOutcome: "The agent recognizes the request for a human and escalates to a team lead with context, and does not try to answer from Knowledge."
+
+  - utterance: "What are the pattern day trader (PDT) rules, and what happens when a customer gets flagged?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How does a customer upgrade their options trading level?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "What's the difference between a cash account and a margin account?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How long does an ACH deposit take before the funds are available to trade?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How does a customer start an ACAT transfer to move their account to tastytrade?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "What is buying power reduction, and how is it calculated for a short option?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "What happens when a short option position gets assigned early?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How does a customer withdraw funds by wire, and what information do they need (IBAN/SWIFT)?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "What are good faith violations and free riding in a cash account?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How does expiration work for a cash-settled index option?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "What is a wash sale and how does it affect a customer's taxes?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How does a customer get approved to trade futures?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "What are the trading hours for futures versus equities, including extended hours?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How does a customer fund and trade crypto at tastytrade?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "What is Regulation T and how does it apply to a margin account?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How does a customer add or change a beneficiary on their account?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "What happens to a customer's options and shares during a stock split or corporate action?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How does a customer contribute to an IRA, and what are the contribution limits?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How do stop-loss and stop-limit orders work, and what triggers them?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
+  - utterance: "How does a customer roll an options position, and what does that do to buying power?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent answers the question from an internal Knowledge article, cites the article title/number, and ends with a 'Confidence: N%' line. It never fabricates; if no internal article covers it, it says so and advises checking with a lead."
