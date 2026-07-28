@@ -94,22 +94,28 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
       Last run in devtt on **v12 = 29/29** (topic + action routing + output validation), including the
       "Can customers in India trade options?" grounding regression. Re-run after promoting to a new org.
 
-## 7. Jira-ticket maker (`file_bug_to_jira`) — must be dealt with per environment
+## 7. Ticket logging (`file_bug_to_jira`) → posts to Slack #help-center-updates
 
-The chain is `file_bug_to_jira` → flow `AF_SFSupport_Create_Jira_Bug` → `SFSupport_JiraClient`
-→ `callout:Jira_Egress`. Getting it firing in devtt required fixes that are **George's shared
-infra in `tastyworks/salesforce`** and must be promoted / re-done per org:
+**Pivot (decision):** the agent no longer creates Jira directly — direct Jira REST needed a personal
+Atlassian credential / service-user OAuth that isn't available. Instead, when a ticket is needed the
+agent **posts the ticket contents to the `#help-center-updates` Slack channel**; the team flags it as
+a Jira ticket from Slack, and it doubles as the content team's audit trail.
 
-- [ ] **`SFSupport_JiraClient`** — patched to read the project key + issue type from
-      `SF_Support_Agent_Setting__mdt` instead of hardcoding `IS` / `Bug`. Promote this fix.
-- [ ] **`SF_Support_Agent_Setting__mdt.Default`** — set `Jira_Project_Key__c` / `Jira_Issue_Type__c`
-      to the target board's real values (devtt = **SK / Task**; SK is a Work-Management project with
-      no "Bug" type) and `Is_Active__c = true`.
-- [ ] **`Jira_Egress` Named Credential** — provision per org (Basic auth to
-      `https://project-soho.atlassian.net`). **Use a service-account Atlassian token in staging/prod**,
-      not a personal one. Never committed to any repo (secret).
-- [ ] Confirm the target project's **required fields** — the create 400s if a required custom field
-      isn't provided (e.g. the IS project requires "Team Resource"; SK's Task type needs none).
+Chain: `file_bug_to_jira` sub-agent → `apex://SFSupport_SlackTicketPost` → `callout:Slack_HelpCenterUpdates`
+(a Slack **Incoming Webhook** — a channel-scoped URL secret, not user OAuth).
+
+- [ ] **`Slack_HelpCenterUpdates` Named Credential** — set its `<endpoint>` to the Incoming Webhook URL
+      for `#help-center-updates` (Slack → Apps → Incoming Webhooks → add to the channel → copy URL).
+      Committed as a **TEMPLATE with a placeholder** — fill the real URL in Setup per org; never commit it.
+- [ ] Grant the agent run-as user + reps **Apex-execute on `SFSupport_SlackTicketPost`**.
+- [ ] After the URL is set, preview "file a bug…" and confirm a formatted ticket lands in
+      `#help-center-updates`.
+
+> The old Jira-callout infra (`SFSupport_JiraClient`, flow `AF_SFSupport_Create_Jira_Bug`,
+> `SF_Support_Agent_Setting__mdt`, `Jira_Egress`) is **no longer in the agent path** — left in the repo
+> for reference/history; safe to remove if the Slack path is the permanent choice.
+> Cosmetic: the sub-agent is still internally labeled `file_bug_to_jira` (kept to avoid breaking the
+> router + committed test suites); rename to `log_ticket_to_slack` in a future batched change if desired.
 
 ## Data Library grounding (added — needs Builder verification)
 
