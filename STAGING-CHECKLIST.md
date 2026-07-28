@@ -82,8 +82,9 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
             NO article was created. Root cause: the agent run-as user lacks `KnowledgeDraftBuilder`
             Apex-execute + `Knowledge__kav` Create (see §3 permission note). The Apex action works when
             invoked directly. **Blocked until the agent user gets those perms; the draft path cannot be
-            confirmed end-to-end until then.** Secondary: harden the draft sub-agent to require a real
-            `OutputArticleId` before claiming success, so a permission gap fails loudly, not silently.
+            confirmed end-to-end until then.** Secondary (DONE in v13): the draft sub-agent now requires
+            a real `OutputArticleId` before claiming success, so this gap fails loudly, not silently —
+            re-verify live once the agent user has the perms.
 
 ## 6. Automated regression suite (already passing)
 
@@ -122,7 +123,11 @@ infra in `tastyworks/salesforce`** and must be promoted / re-done per org:
 ## Known follow-on (not a blocker)
 
 - **Dedup / check-asked-before** — not yet ported; needs a `Support_Log__c` logging layer to be useful.
-- **Agent version:** current published/active version is **v12** — `answer_rep_questions` now does
+- **Agent version:** current published/active version is **v13**. v13 adds: the **`Confidence: N%`
+  line is scoped to knowledge answers only** (bug/draft/escalate responses no longer append it —
+  verified) and the **draft sub-agent requires a real `OutputArticleId`** before claiming success (so
+  a permission gap fails loudly instead of silently — pending agent-user perms to verify live).
+  `answer_rep_questions` also does
   query distillation + grounds across all published articles + an anti-fabrication guardrail
   (relevance-check the result, retry once with conceptual keywords on a tangential hit, never
   extrapolate a directional/eligibility conclusion from an off-topic article, calibrate confidence

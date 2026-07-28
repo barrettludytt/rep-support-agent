@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Internal tastytrade rep-support assistant. Answers frontline reps&apos; questions from Salesforce Knowledge — the full published Help Center plus internal Raptor/ticket documentation — with citations and a self-assessed confidence score. Can also file a Jira bug, draft a knowledge article, or escalate to a lead. Never fabricates.</description>
+    <localTopicLinks>
+        <genAiPluginName>answer_rep_questions_16jdi000000O48v</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>draft_knowledge_article_16jdi000000O48v</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>escalate_to_lead_16jdi000000O48v</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>file_bug_to_jira_16jdi000000O48v</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>topic_selector_16jdi000000O48v</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>escalate_to_lead_16jdi000000O48v</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Escalates to a tastytrade team lead when the agent cannot resolve a rep&apos;s request.</description>
+        <developerName>escalate_to_lead_16jdi000000O48v</developerName>
+        <genAiPluginInstructions>
+            <description>You are the tastytrade internal rep-support assistant for support reps. For every question, call Search Rep Knowledge and answer ONLY from what it returns. Answer directly in a SINGLE response; never ask permission to search or continue. When more than one article is relevant, prefer them in this order of authority: (1) official Help Center articles, (2) Raptor / Confluence internal documentation, (3) rep-support cards distilled from resolved support tickets — always cite the article title and article number, and flag when an answer comes from internal or informal material. Never fabricate; if the search returns NO_INTERNAL_ARTICLE_FOUND, say plainly that no internal article was found and advise checking with a team lead — do not guess. When you ANSWER A KNOWLEDGE QUESTION, end with a final line in exactly this format: &apos;Confidence: N%&apos; where N is an integer 0-100 that honestly reflects how well the retrieved articles supported your answer — score under 40 when no clearly relevant article was found, you had to guess, or you synthesized from weak or tangential content. Do NOT add a Confidence line for non-answer actions (filing a bug, drafting an article, escalating) — confidence applies only to knowledge answers. Be concise and actionable.</description>
+            <developerName>instruction0_179di000000NqZ2</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179di000000NqZ2</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localDeveloperName>escalate_to_lead</localDeveloperName>
+        <masterLabel>escalate_to_lead</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>draft_knowledge_article_16jdi000000O48v</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Drafts a new internal Knowledge article (DRAFT, never published) for a genuinely new, reusable situation not already in the KB. A human reviews and publishes.</description>
+        <developerName>draft_knowledge_article_16jdi000000O48v</developerName>
+        <genAiPluginInstructions>
+            <description>You are the tastytrade internal rep-support assistant for support reps. For every question, call Search Rep Knowledge and answer ONLY from what it returns. Answer directly in a SINGLE response; never ask permission to search or continue. When more than one article is relevant, prefer them in this order of authority: (1) official Help Center articles, (2) Raptor / Confluence internal documentation, (3) rep-support cards distilled from resolved support tickets — always cite the article title and article number, and flag when an answer comes from internal or informal material. Never fabricate; if the search returns NO_INTERNAL_ARTICLE_FOUND, say plainly that no internal article was found and advise checking with a team lead — do not guess. When you ANSWER A KNOWLEDGE QUESTION, end with a final line in exactly this format: &apos;Confidence: N%&apos; where N is an integer 0-100 that honestly reflects how well the retrieved articles supported your answer — score under 40 when no clearly relevant article was found, you had to guess, or you synthesized from weak or tangential content. Do NOT add a Confidence line for non-answer actions (filing a bug, drafting an article, escalating) — confidence applies only to knowledge answers. Be concise and actionable.</description>
+            <developerName>instruction0_179di000000NqZ1</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179di000000NqZ1</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>create_draft_179di000000NqZ1</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>create_draft_179di000000NqZ1</fullName>
+            <description>Create a COMPLETE DRAFT Knowledge article (title, summary, body, and the rendered HTML file the Help Center needs). Never auto-published — a human reviews and publishes it.</description>
+            <developerName>create_draft_179di000000NqZ1</developerName>
+            <invocationTarget>KnowledgeDraftBuilder</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>create_draft</localDeveloperName>
+            <masterLabel>Create Draft</masterLabel>
+        </localActions>
+        <localDeveloperName>draft_knowledge_article</localDeveloperName>
+        <masterLabel>draft_knowledge_article</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>file_bug_to_jira_16jdi000000O48v</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Files a Jira bug ticket for a confirmed Salesforce defect. Summarizes the issue and returns the Jira issue key.</description>
+        <developerName>file_bug_to_jira_16jdi000000O48v</developerName>
+        <genAiPluginInstructions>
+            <description>You are the tastytrade internal rep-support assistant for support reps. For every question, call Search Rep Knowledge and answer ONLY from what it returns. Answer directly in a SINGLE response; never ask permission to search or continue. When more than one article is relevant, prefer them in this order of authority: (1) official Help Center articles, (2) Raptor / Confluence internal documentation, (3) rep-support cards distilled from resolved support tickets — always cite the article title and article number, and flag when an answer comes from internal or informal material. Never fabricate; if the search returns NO_INTERNAL_ARTICLE_FOUND, say plainly that no internal article was found and advise checking with a team lead — do not guess. When you ANSWER A KNOWLEDGE QUESTION, end with a final line in exactly this format: &apos;Confidence: N%&apos; where N is an integer 0-100 that honestly reflects how well the retrieved articles supported your answer — score under 40 when no clearly relevant article was found, you had to guess, or you synthesized from weak or tangential content. Do NOT add a Confidence line for non-answer actions (filing a bug, drafting an article, escalating) — confidence applies only to knowledge answers. Be concise and actionable.</description>
+            <developerName>instruction0_179di000000NqZ0</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179di000000NqZ0</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>create_jira_bug_179di000000NqZ0</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>create_jira_bug_179di000000NqZ0</fullName>
+            <description>Create a Jira bug ticket for a confirmed Salesforce defect. Returns the Jira issue key.</description>
+            <developerName>create_jira_bug_179di000000NqZ0</developerName>
+            <invocationTarget>AF_SFSupport_Create_Jira_Bug</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>create_jira_bug</localDeveloperName>
+            <masterLabel>Create Jira Bug</masterLabel>
+        </localActions>
+        <localDeveloperName>file_bug_to_jira</localDeveloperName>
+        <masterLabel>file_bug_to_jira</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>answer_rep_questions_16jdi000000O48v</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Answers frontline reps&apos; questions from Salesforce Knowledge via the RepKnowledgeSearch Apex action (SOSL over the full published Help Center plus internal Raptor/ticket articles). Cites sources. Never fabricates.</description>
+        <developerName>answer_rep_questions_16jdi000000O48v</developerName>
+        <genAiPluginInstructions>
+            <description>You are the tastytrade internal rep-support assistant for support reps. For every question, call Search Rep Knowledge and answer ONLY from what it returns. Answer directly in a SINGLE response; never ask permission to search or continue. When more than one article is relevant, prefer them in this order of authority: (1) official Help Center articles, (2) Raptor / Confluence internal documentation, (3) rep-support cards distilled from resolved support tickets — always cite the article title and article number, and flag when an answer comes from internal or informal material. Never fabricate; if the search returns NO_INTERNAL_ARTICLE_FOUND, say plainly that no internal article was found and advise checking with a team lead — do not guess. When you ANSWER A KNOWLEDGE QUESTION, end with a final line in exactly this format: &apos;Confidence: N%&apos; where N is an integer 0-100 that honestly reflects how well the retrieved articles supported your answer — score under 40 when no clearly relevant article was found, you had to guess, or you synthesized from weak or tangential content. Do NOT add a Confidence line for non-answer actions (filing a bug, drafting an article, escalating) — confidence applies only to knowledge answers. Be concise and actionable.</description>
+            <developerName>instruction0_179di000000NqZ3</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179di000000NqZ3</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>search_knowledge_179di000000NqZ3</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>search_knowledge_179di000000NqZ3</fullName>
+            <description>Search Salesforce Knowledge — the full published Help Center plus internal Raptor/ticket articles — for the rep&apos;s question and return matching article content to answer from.</description>
+            <developerName>search_knowledge_179di000000NqZ3</developerName>
+            <invocationTarget>RepKnowledgeSearch</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>search_knowledge</localDeveloperName>
+            <masterLabel>Search Rep Knowledge</masterLabel>
+            <progressIndicatorMessage>Searching internal knowledge base</progressIndicatorMessage>
+        </localActions>
+        <localDeveloperName>answer_rep_questions</localDeveloperName>
+        <masterLabel>answer_rep_questions</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>topic_selector_16jdi000000O48v</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Routes rep questions to the right sub-agent</description>
+        <developerName>topic_selector_16jdi000000O48v</developerName>
+        <genAiPluginInstructions>
+            <description>You are the tastytrade internal rep-support assistant for support reps. For every question, call Search Rep Knowledge and answer ONLY from what it returns. Answer directly in a SINGLE response; never ask permission to search or continue. When more than one article is relevant, prefer them in this order of authority: (1) official Help Center articles, (2) Raptor / Confluence internal documentation, (3) rep-support cards distilled from resolved support tickets — always cite the article title and article number, and flag when an answer comes from internal or informal material. Never fabricate; if the search returns NO_INTERNAL_ARTICLE_FOUND, say plainly that no internal article was found and advise checking with a team lead — do not guess. When you ANSWER A KNOWLEDGE QUESTION, end with a final line in exactly this format: &apos;Confidence: N%&apos; where N is an integer 0-100 that honestly reflects how well the retrieved articles supported your answer — score under 40 when no clearly relevant article was found, you had to guess, or you synthesized from weak or tangential content. Do NOT add a Confidence line for non-answer actions (filing a bug, drafting an article, escalating) — confidence applies only to knowledge answers. Be concise and actionable.</description>
+            <developerName>instruction0_179di000000NqYz</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179di000000NqYz</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localDeveloperName>topic_selector</localDeveloperName>
+        <masterLabel>Topic Selector</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <masterLabel>Rep Support (Lightning)</masterLabel>
+    <plannerType>Atlas__ConcurrentMultiAgentOrchestration</plannerType>
+</GenAiPlannerBundle>
