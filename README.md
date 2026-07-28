@@ -38,7 +38,7 @@ and published with `sf agent publish authoring-bundle`.
 ```
 force-app/main/default/
   aiAuthoringBundles/Rep_Support_Lightning/       Agent Script source (edit here)
-  genAiPlannerBundles/Rep_Support_Lightning_v11/  Compiled planner (published output, current)
+  genAiPlannerBundles/Rep_Support_Lightning_v12/  Compiled planner (published output, current)
   bots/Rep_Support_Lightning/                     Bot + versions
   classes/                                        RepKnowledgeSearch, KnowledgeDraftBuilder,
                                                   SFSupport_JiraClient, RepAgentWeeklyDigest
