@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types><members>RepKnowledgeSearch</members><members>RepAgentWeeklyDigest</members><name>ApexClass</name></types>
-    <types><members>Rep_Support_Lightning</members><name>Bot</name></types>
-    <types><members>Rep_Support_Lightning_v6</members><name>GenAiPlannerBundle</name></types>
+    <types>
+        <members>RepKnowledgeSearch</members>
+        <members>RepAgentWeeklyDigest</members>
+        <members>KnowledgeDraftBuilder</members>
+        <members>SFSupport_JiraClient</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>AF_SFSupport_Create_Jira_Bug</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>SF_Support_Agent_Setting.Default</members>
+        <name>CustomMetadata</name>
+    </types>
+    <types>
+        <members>Jira_Egress</members>
+        <name>NamedCredential</name>
+    </types>
+    <types>
+        <members>Rep_Support_Tests</members>
+        <name>AiEvaluationDefinition</name>
+    </types>
+    <types>
+        <members>Rep_Support_Lightning</members>
+        <name>Bot</name>
+    </types>
+    <types>
+        <members>Rep_Support_Lightning_v9</members>
+        <name>GenAiPlannerBundle</name>
+    </types>
     <version>61.0</version>
 </Package>

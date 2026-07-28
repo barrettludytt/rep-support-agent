@@ -6,10 +6,16 @@ published + previewed in DEVTT first** — they don't validate like ordinary met
 
 ## 1. Metadata that deploys (in the PR)
 
-- [ ] Apex: `RepKnowledgeSearch`, `RepAgentWeeklyDigest`
+- [ ] Apex: `RepKnowledgeSearch` (grounding search), `KnowledgeDraftBuilder` (draft-article),
+      `SFSupport_JiraClient` (Jira create), `RepAgentWeeklyDigest` (scheduled digest)
 - [ ] Agent Script authoring bundle: `Rep_Support_Lightning` (`aiAuthoringBundles/`)
-- [ ] GenAiPlannerBundle: `Rep_Support_Lightning_v6`
+- [ ] GenAiPlannerBundle: `Rep_Support_Lightning_v9` (current published version — includes the
+      query-distillation instruction in `answer_rep_questions`)
+- [ ] Flow: `AF_SFSupport_Create_Jira_Bug` (target of the `file_bug_to_jira` sub-agent)
+- [ ] CustomMetadata: `SF_Support_Agent_Setting.Default` (Jira project/issue-type/active config)
+- [ ] NamedCredential: `Jira_Egress` — **template only, no secret** (fill username/token per org; see §6)
 - [ ] Bot: `Rep_Support_Lightning`
+- [ ] (Optional) AiEvaluationDefinition: `Rep_Support_Tests` (bulk regression suite; see `specs/`)
 
 ## 2. Publish + activate the agent (per target org)
 
@@ -23,10 +29,19 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 
 ## 3. Post-deploy MANUAL steps
 
-- [ ] Grant reps **Apex-execute** on `RepKnowledgeSearch`.
+- [ ] Grant reps **Apex-execute** on `RepKnowledgeSearch`, `KnowledgeDraftBuilder`, `SFSupport_JiraClient`.
 - [ ] Grant reps **Knowledge read** + visibility of the internal data category.
-- [ ] Migrate the internal Knowledge articles into the target org on the **internal channel**
-      (`IsVisibleInPkb=false`) so the SOSL action can find them.
+- [ ] **Knowledge visibility — VERIFY BEFORE PROD.** `RepKnowledgeSearch` filters
+      `IsVisibleInPkb = false` (internal-only articles). In devtt the rep articles the agent
+      searches are internal-visible, so this works as-is. **Prod's Help Center articles are
+      customer-facing (`IsVisibleInPkb = true`)** — confirm which set reps should be answered from:
+      - If reps should answer from the **public HC** articles, change the WHERE clause to drop the
+        `IsVisibleInPkb = false` filter (or `= true`), or point at whatever internal category holds
+        rep-support content.
+      - No article *import* is needed — prod already contains the full Help Center. This was a
+        **recall** problem (verbose queries returned the wrong article), not a content gap; the
+        query-distillation step in agent v9 is the fix. Do **not** re-create "gap" articles that
+        already exist in prod.
 - [ ] Confirm the org-wide email address `no-reply@tastytrade.com` exists (used by the digest);
       then schedule the weekly digest **only at rollout**:
       `System.schedule('Rep Support Weekly Digest','0 0 8 ? * MON *', new RepAgentWeeklyDigest());`

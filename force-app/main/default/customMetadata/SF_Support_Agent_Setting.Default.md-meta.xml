@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Default</label>
+    <protected>false</protected>
+    <values>
+        <field>Admin_Slack_Channel_Id__c</field>
+        <value xsi:type="xsd:string">STUB_SLACK_CHANNEL_ID</value>
+    </values>
+    <values>
+        <field>Admin_Slack_User_Ids__c</field>
+        <value xsi:type="xsd:string">STUB_ADMIN_SLACK_USER_ID</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Jira_Base_Path__c</field>
+        <value xsi:type="xsd:string">/rest/api/3/issue</value>
+    </values>
+    <values>
+        <field>Jira_Issue_Type__c</field>
+        <value xsi:type="xsd:string">Task</value>
+    </values>
+    <values>
+        <field>Jira_Project_Key__c</field>
+        <value xsi:type="xsd:string">SK</value>
+    </values>
+</CustomMetadata>
