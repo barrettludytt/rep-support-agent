@@ -1,0 +1,45 @@
+name: Rep_Support_Tests
+description: >-
+  Bulk test suite for the Rep Support agent — knowledge questions route to
+  answer_rep_questions/search_knowledge; bug/draft/escalate utterances route to
+  the right sub-agents.
+subjectType: AGENT
+subjectName: Rep_Support_Lightning
+testCases:
+  - utterance: "How can a customer meet an FM call?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent explains how a customer can meet a maintenance/FM call from an internal Knowledge article, cites the article, and ends with a Confidence line. It does not fabricate."
+  - utterance: "How does a customer fund their account by wire, and when are the funds available?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent explains the wire funding/availability process from an internal article, with a citation and a Confidence line."
+  - utterance: "Where does a customer find their 1099 tax documents?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent explains where a customer finds their 1099 tax documents from an internal article, cited, ending with a Confidence line."
+  - utterance: "A customer is locked out of their account and can't get past two-factor authentication. What do they do?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent explains the account-access / 2FA recovery steps from an internal article, cited, ending with a Confidence line."
+  - utterance: "What happens to an in-the-money option at expiration?"
+    expectedTopic: "answer_rep_questions"
+    expectedActions:
+      - "search_knowledge"
+    expectedOutcome: "The agent explains what happens to an in-the-money option at expiration (assignment/exercise) from an internal article, cited, ending with a Confidence line."
+  - utterance: "File a bug — the Positions page throws an error every time I filter by futures."
+    expectedTopic: "file_bug_to_jira"
+    expectedActions: []
+    expectedOutcome: "The agent recognizes a defect report, gathers a summary/description, and files a Jira bug, returning the issue key."
+  - utterance: "Can you document this for the team? When a customer's ACAT is stuck in review, we tell them to contact the delivering firm to confirm the transfer instructions."
+    expectedTopic: "draft_knowledge_article"
+    expectedActions: []
+    expectedOutcome: "The agent recognizes a request to document new content, proposes a title/summary, and drafts a knowledge article (draft only, human-reviewed)."
+  - utterance: "I'm stuck on this and I need to talk to a team lead about the account."
+    expectedTopic: "escalate_to_lead"
+    expectedActions: []
+    expectedOutcome: "The agent recognizes the request for a human and escalates to a team lead with context, and does not try to answer from Knowledge."
