@@ -29,11 +29,11 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 
 ## 3. Post-deploy MANUAL steps
 
-- [ ] **Rep permission set — NOT yet built/committed.** Create a `Rep_Support_Agent` permission set
-      (or fold into the reps' profile) granting **Apex-execute** on `RepKnowledgeSearch`,
-      `KnowledgeDraftBuilder`, `SFSupport_JiraClient`, and **Knowledge read** on every category the
-      agent answers from (public HC + internal categories). Assign to the rep users. Until this
-      exists, a non-admin rep will hit permission errors.
+- [ ] **Rep permission set — OWNED BY THE SALESFORCE TEAM (not built here, by decision).** Create a
+      `Rep_Support_Agent` permission set (or fold into the reps' profile) granting **Apex-execute** on
+      `RepKnowledgeSearch`, `KnowledgeDraftBuilder`, `SFSupport_JiraClient`, and **Knowledge read** on
+      every category the agent answers from (public HC + internal categories). Assign to the rep users.
+      Until this exists, a non-admin rep will hit permission errors.
 - [ ] **Knowledge scope — DECIDED (implemented).** `RepKnowledgeSearch` searches **all published
       (Online) articles** with no visibility/category filter — both public Help Center content AND
       non-public internal KB articles. This is an INTERNAL, employee-only agent, so it grounds on
@@ -63,12 +63,17 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 ## 5. Smoke test after deploy
 
 - [ ] Preview the agent → a known rep question returns a **cited** answer ending in a `Confidence: N%` line.
-- [ ] **Live multi-turn preview — NOT yet done in any org (do before rollout).** The bulk test suite
-      (§6) fires only the first turn, so the action-completing paths are unverified end-to-end. In the
-      Agentforce Builder preview, run each to completion:
-      - "file a bug…" → supply the summary/details when asked → confirm a **real Jira key** comes back.
-      - "document this…" → confirm the proposal → confirm a **DRAFT** article is created (not published).
-      - "I need a lead" → confirm the escalation hand-off message.
+- [x] **Live multi-turn preview — verified in devtt (v12).** The bulk suite (§6) fires only the first
+      turn, so these action-completing paths were confirmed by hand in the Builder preview:
+      - [x] "file a bug…" → gathered details on turn 1, filed **real Jira SK-322** on turn 2 via the
+            full flow → `SFSupport_JiraClient` → `Jira_Egress` callout chain (test ticket deleted).
+            Confirms the devtt Jira token/callout works.
+      - [x] "I need a lead" → clean escalation hand-off; carried context across the session (referenced
+            the earlier bug + draft request), confirming multi-turn session memory.
+      - [ ] "document this…" → proposal step verified (agent proposes title/summary and asks to
+            confirm), but the confirm→create step was not run live, so the agent→`KnowledgeDraftBuilder`
+            handoff on turn 2 is unconfirmed *via the agent*. The Apex action itself is proven by direct
+            invocation (created drafts with body + HTML file). Re-run and reply "yes" to close fully.
 
 ## 6. Automated regression suite (already passing)
 
