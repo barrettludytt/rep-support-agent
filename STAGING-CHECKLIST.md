@@ -29,11 +29,19 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 
 ## 3. Post-deploy MANUAL steps
 
-- [ ] **Rep permission set — OWNED BY THE SALESFORCE TEAM (not built here, by decision).** Create a
-      `Rep_Support_Agent` permission set (or fold into the reps' profile) granting **Apex-execute** on
-      `RepKnowledgeSearch`, `KnowledgeDraftBuilder`, `SFSupport_JiraClient`, and **Knowledge read** on
-      every category the agent answers from (public HC + internal categories). Assign to the rep users.
-      Until this exists, a non-admin rep will hit permission errors.
+- [ ] **Permission set — OWNED BY THE SALESFORCE TEAM (not built here, by decision).** Create a
+      `Rep_Support_Agent` permission set granting **Apex-execute** on `RepKnowledgeSearch`,
+      `KnowledgeDraftBuilder`, `SFSupport_JiraClient`; **`Knowledge__kav` Create + Read**; and
+      **data-category visibility** on every category the agent answers from (public HC + internal).
+      - ⚠️ **Assign it to BOTH the reps AND the agent's run-as user** (the `Einstein Agent User`,
+        e.g. `rep_support_agent@…`). Verified in devtt (2026-07-28): that agent user currently
+        LACKS `Knowledge__kav` Create **and** Apex-execute on `KnowledgeDraftBuilder` (it has execute
+        on `RepKnowledgeSearch`, which is why Q&A works). Because of this, the **draft-article
+        sub-agent silently fails** — the `apex://KnowledgeDraftBuilder` action can't run as the agent
+        user, yet the agent reported "draft created." (The `file_bug_to_jira` path is unaffected
+        because it runs through a Flow, i.e. system context, not a direct `apex://` action.)
+      - The auto-generated agent permset (`Rep_Support_Agent…​ Permissions`) is incomplete — it did
+        not include `KnowledgeDraftBuilder` execute or Knowledge Create. Re-generate/extend it.
 - [ ] **Knowledge scope — DECIDED (implemented).** `RepKnowledgeSearch` searches **all published
       (Online) articles** with no visibility/category filter — both public Help Center content AND
       non-public internal KB articles. This is an INTERNAL, employee-only agent, so it grounds on
@@ -70,10 +78,12 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
             Confirms the devtt Jira token/callout works.
       - [x] "I need a lead" → clean escalation hand-off; carried context across the session (referenced
             the earlier bug + draft request), confirming multi-turn session memory.
-      - [ ] "document this…" → proposal step verified (agent proposes title/summary and asks to
-            confirm), but the confirm→create step was not run live, so the agent→`KnowledgeDraftBuilder`
-            handoff on turn 2 is unconfirmed *via the agent*. The Apex action itself is proven by direct
-            invocation (created drafts with body + HTML file). Re-run and reply "yes" to close fully.
+      - [x] "document this…" → RUN LIVE and exposed a real bug: the agent claimed "draft created" but
+            NO article was created. Root cause: the agent run-as user lacks `KnowledgeDraftBuilder`
+            Apex-execute + `Knowledge__kav` Create (see §3 permission note). The Apex action works when
+            invoked directly. **Blocked until the agent user gets those perms; the draft path cannot be
+            confirmed end-to-end until then.** Secondary: harden the draft sub-agent to require a real
+            `OutputArticleId` before claiming success, so a permission gap fails loudly, not silently.
 
 ## 6. Automated regression suite (already passing)
 
