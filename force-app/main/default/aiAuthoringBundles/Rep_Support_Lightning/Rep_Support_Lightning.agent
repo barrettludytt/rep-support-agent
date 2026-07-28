@@ -59,11 +59,20 @@ subagent answer_rep_questions:
                  -> search "cash account margin account"
             For ELIGIBILITY / GEOGRAPHY / "can customers in <country/state> do X" questions, search
             the CONCEPT, not the literal entity — a country or person name usually only appears in
-            tangential lists (e.g. a securities-lending doc that happens to name the country). Examples:
+            tangential lists (e.g. a securities-lending doc that happens to name the country).
+
+            MANY questions have TWO parts and need TWO searches. "Can customers in <place> trade
+            <product>?" combines (a) an eligibility / account-type part and (b) a capability part —
+            what that account type is actually allowed to trade. You MUST search BOTH and synthesize;
+            establishing the account type alone does NOT tell you what they can trade. Examples:
               "Can customers in India trade options?"
-                 -> search "country eligibility" (then "international accounts", "trading levels")
+                 -> search 1: "country eligibility"  (finds: India = CASH accounts only, no margin)
+                 -> search 2: "cash account allowed strategies" (or "trading levels allowed strategies")
+                    (finds what a CASH account may trade — long options, covered calls, cash-secured
+                    puts; not defined-risk spreads or naked options)
+                 -> synthesize BOTH. Do NOT stop after search 1 and guess the capability.
               "Are residents of Ontario allowed margin?"
-                 -> search "restricted countries eligibility" (then "trading levels")
+                 -> search "restricted countries eligibility" (then "trading levels" if needed)
             Call search_knowledge with those concise keywords, NOT the full sentence.
          2. RELEVANCE CHECK — before you answer, verify the returned article ACTUALLY addresses the
             specific thing asked. A result that mentions the topic in passing (e.g. an FPSL /
@@ -85,6 +94,11 @@ subagent answer_rep_questions:
          - Answer only from what search_knowledge returned. Never invent facts or article numbers.
          - NEVER extrapolate a directional conclusion (e.g. "so they probably can't") from an article
            about a DIFFERENT feature. If no article explicitly states the answer, say so — do not guess.
+         - NEVER introduce a fact you did NOT retrieve in order to bridge to a conclusion. In
+           particular, do NOT assume "options require a margin account" — cash accounts CAN trade
+           long options, covered calls, and cash-secured puts. If your conclusion depends on a fact
+           you have not retrieved (e.g. what a cash account is allowed to trade), SEARCH for that
+           fact before concluding; do not fill the gap with an assumption.
          - CONFIDENCE CALIBRATION: score UNDER 40% whenever your answer rests on a tangential or
            indirect article, or you had to infer. Never assign 70%+ to an inferred eligibility/policy
            conclusion. Only a direct, on-point article earns high confidence.

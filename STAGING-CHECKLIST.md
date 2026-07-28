@@ -9,8 +9,8 @@ published + previewed in DEVTT first** — they don't validate like ordinary met
 - [ ] Apex: `RepKnowledgeSearch` (grounding search), `KnowledgeDraftBuilder` (draft-article),
       `SFSupport_JiraClient` (Jira create), `RepAgentWeeklyDigest` (scheduled digest)
 - [ ] Agent Script authoring bundle: `Rep_Support_Lightning` (`aiAuthoringBundles/`)
-- [ ] GenAiPlannerBundle: `Rep_Support_Lightning_v11` (current published version — query
-      distillation + anti-fabrication guardrail in `answer_rep_questions`)
+- [ ] GenAiPlannerBundle: `Rep_Support_Lightning_v12` (current published version — query
+      distillation + anti-fabrication guardrail + two-part-question decomposition in `answer_rep_questions`)
 - [ ] Flow: `AF_SFSupport_Create_Jira_Bug` (target of the `file_bug_to_jira` sub-agent)
 - [ ] CustomMetadata: `SF_Support_Agent_Setting.Default` (Jira project/issue-type/active config)
 - [ ] NamedCredential: `Jira_Egress` — **template only, no secret** (fill username/token per org; see §7)
@@ -75,7 +75,7 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 - [ ] `specs/rep-support-tests.yaml` → `Rep_Support_Tests` (29 cases). Create/run with:
       `sf agent test create --spec specs/rep-support-tests.yaml --api-name Rep_Support_Tests --force-overwrite --target-org <org>`
       then `sf agent test run --api-name Rep_Support_Tests --target-org <org>`.
-      Last run in devtt on **v11 = 29/29** (topic + action routing + output validation), including the
+      Last run in devtt on **v12 = 29/29** (topic + action routing + output validation), including the
       "Can customers in India trade options?" grounding regression. Re-run after promoting to a new org.
 
 ## 7. Jira-ticket maker (`file_bug_to_jira`) — must be dealt with per environment
@@ -107,9 +107,13 @@ infra in `tastyworks/salesforce`** and must be promoted / re-done per org:
 ## Known follow-on (not a blocker)
 
 - **Dedup / check-asked-before** — not yet ported; needs a `Support_Log__c` logging layer to be useful.
-- **Agent version:** current published/active version is **v11** — query distillation +
-  anti-fabrication guardrail in `answer_rep_questions` (relevance-check the search result, enforce a
-  second conceptual search on tangential hits, never extrapolate a directional/eligibility conclusion
-  from an off-topic article, calibrate confidence < 40% on indirect content) + grounding across all
-  published articles. Regression case "Can customers in India trade options?" is in
-  `specs/rep-support-tests.yaml`.
+- **Agent version:** current published/active version is **v12** — `answer_rep_questions` now does
+  query distillation + grounds across all published articles + an anti-fabrication guardrail
+  (relevance-check the result, retry once with conceptual keywords on a tangential hit, never
+  extrapolate a directional/eligibility conclusion from an off-topic article, calibrate confidence
+  < 40% on indirect content) + **two-part-question decomposition** ("can customers in <place> trade
+  <product>?" → search eligibility/account-type AND what that account type can trade, then
+  synthesize) + a **no-injected-premise rule** (never bridge to a conclusion with a fact you didn't
+  retrieve — e.g. the false "options require a margin account"). Regression case "Can customers in
+  India trade options?" is in `specs/rep-support-tests.yaml`; verified 6/6 on a repeated-run
+  reliability check.
