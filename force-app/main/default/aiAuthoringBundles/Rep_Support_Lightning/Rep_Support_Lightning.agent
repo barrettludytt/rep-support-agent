@@ -17,6 +17,13 @@ system:
       error: "Something went wrong — please try again, or ask to escalate to a lead."
    instructions: "You are the tastytrade internal rep-support assistant for support reps. For every question, call Search Rep Knowledge and answer ONLY from what it returns. Answer directly in a SINGLE response; never ask permission to search or continue. When more than one article is relevant, prefer them in this order of authority: (1) official Help Center articles, (2) Raptor / Confluence internal documentation, (3) rep-support cards distilled from resolved support tickets — always cite the article title and article number, and flag when an answer comes from internal or informal material. Never fabricate; if the search returns NO_INTERNAL_ARTICLE_FOUND, say plainly that no internal article was found and advise checking with a team lead — do not guess. When you ANSWER A KNOWLEDGE QUESTION, end with a final line in exactly this format: 'Confidence: N%' where N is an integer 0-100 that honestly reflects how well the retrieved articles supported your answer — score under 40 when no clearly relevant article was found, you had to guess, or you synthesized from weak or tangential content. Do NOT add a Confidence line for non-answer actions (filing a bug, drafting an article, escalating) — confidence applies only to knowledge answers. Be concise and actionable."
 
+# Data Library grounding (native Agentforce knowledge retrieval).
+# Binds the "Rep Support KB" Data Library to AnswerQuestionsWithKnowledge calls.
+# devTT library ID: 1JDdi000001WtIXGA0 — update rag_feature_config_id per org.
+knowledge:
+   rag_feature_config_id: "ARFPC_1JDdi000001WtIXGA0"
+   citations_enabled: True
+
 start_agent topic_selector:
    description: "Routes rep questions to the right sub-agent"
    reasoning:
@@ -73,7 +80,9 @@ subagent answer_rep_questions:
                  -> synthesize BOTH. Do NOT stop after search 1 and guess the capability.
               "Are residents of Ontario allowed margin?"
                  -> search "restricted countries eligibility" (then "trading levels" if needed)
-            Call search_knowledge with those concise keywords, NOT the full sentence.
+            Call answer_with_knowledge (the Data Library) FIRST with those concise keywords. If its
+            knowledgeSummary comes back empty or does not address the question, fall back to
+            search_knowledge (the Apex SOSL search). Use concise keywords, NOT the full sentence.
          2. RELEVANCE CHECK — before you answer, verify the returned article ACTUALLY addresses the
             specific thing asked. A result that mentions the topic in passing (e.g. an FPSL /
             securities-lending doc that lists a country, when the question is about that country's
@@ -104,13 +113,16 @@ subagent answer_rep_questions:
            conclusion. Only a direct, on-point article earns high confidence.
          - Always cite the article title/number when you use an article.
       actions:
+         search_dl: @actions.answer_with_knowledge
+            with query=...
+            description: "PRIMARY: search the Rep Support KB Data Library (native Agentforce knowledge retrieval) with concise distilled keywords"
          search: @actions.search_knowledge
             with query=...
-            description: "Search Salesforce Knowledge (Help Center + internal docs) using concise KEYWORDS distilled from the rep's question (not the full sentence)"
+            description: "FALLBACK: Apex SOSL search over Salesforce Knowledge (Help Center + internal docs) when the Data Library returns nothing"
 
    actions:
       search_knowledge:
-         description: "Search Salesforce Knowledge — the full published Help Center plus internal Raptor/ticket articles — for the rep's question and return matching article content to answer from."
+         description: "FALLBACK Apex search over Salesforce Knowledge — the full published Help Center plus internal Raptor/ticket articles — used when the Data Library returns nothing."
          label: "Search Rep Knowledge"
          include_in_progress_indicator: True
          progress_indicator_message: "Searching internal knowledge base"
@@ -124,6 +136,32 @@ subagent answer_rep_questions:
                description: "Top matching internal knowledge articles (title, article number, body), or NO_INTERNAL_ARTICLE_FOUND."
                is_displayable: False
          target: "apex://RepKnowledgeSearch"
+
+      answer_with_knowledge:
+         description: "Search the internal knowledge base via the Rep Support KB Data Library (native Agentforce retrieval). Returns a rich-text summary with citations."
+         label: "Answer Questions with Knowledge"
+         source: "EmployeeCopilot__AnswerQuestionsWithKnowledge"
+         include_in_progress_indicator: True
+         progress_indicator_message: "Searching the knowledge base"
+         inputs:
+            query: string
+               description: "The rep's question or keywords to search the Data Library"
+               is_required: True
+               is_user_input: True
+            citationsEnabled: boolean
+               description: "Whether or not citations are enabled."
+               is_required: False
+               is_user_input: True
+         outputs:
+            knowledgeSummary: object
+               description: "Rich-text summary of the retrieved knowledge articles with citations."
+               is_displayable: True
+               complex_data_type_name: "lightning__richTextType"
+            citationSources: object
+               description: "Source links for the chunks in the hydrated prompt."
+               is_displayable: False
+               complex_data_type_name: "@apexClassType/AiCopilot__GenAiCitationInput"
+         target: "standardInvocableAction://streamKnowledgeSearch"
 
 subagent file_bug_to_jira:
    label: "file_bug_to_jira"

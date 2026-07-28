@@ -111,6 +111,27 @@ infra in `tastyworks/salesforce`** and must be promoted / re-done per org:
 - [ ] Confirm the target project's **required fields** — the create 400s if a required custom field
       isn't provided (e.g. the IS project requires "Team Resource"; SK's Task type needs none).
 
+## Data Library grounding (added — needs Builder verification)
+
+The agent now also wires in the **native Agentforce Data Library** path, mirroring George's
+SF Internal Support agent: a top-level `knowledge:` block (`rag_feature_config_id:
+ARFPC_1JDdi000001WtIXGA0`, the "Rep Support KB" library) + an `AnswerQuestionsWithKnowledge`
+action (`EmployeeCopilot__AnswerQuestionsWithKnowledge` → `standardInvocableAction://streamKnowledgeSearch`).
+It is wired **primary, with the Apex `RepKnowledgeSearch` as fallback**, so grounding is guaranteed
+either way.
+
+- ✅ **Confirmed:** the wiring **validates with 0 errors** (the RAG config resolves — the thing that
+  was broken when we first built this) and the `answer_with_knowledge` action **fires** in every test.
+- ⚠️ **Not yet confirmable via CLI:** whether the Data Library actually *returns content*. Attempts to
+  isolate it failed because `sf agent test` kept invoking the Apex action even after it was removed
+  from the source and republished (BotVersion 18 active, yet the harness ran an older action set —
+  the known "committed ≠ active" publish/version-propagation disconnect). So CLI testing can't prove
+  DL content-serving here.
+- ▶️ **To verify:** open the agent in **Agentforce Builder → Preview** (authoritative for the live
+  version) and ask a known question; confirm the answer carries a Data Library `knowledgeSummary`
+  with citations rather than silently riding the Apex fallback. If the DL serves well, drop the Apex
+  fallback; if not, the Apex path already carries it (proven 29/29 + 100/100).
+
 ## Resolved during testing
 
 - **Eligibility-by-country answers** (e.g. "Can customers in India trade options?") — originally
