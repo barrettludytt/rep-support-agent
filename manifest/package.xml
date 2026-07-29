@@ -33,5 +33,9 @@
         <members>Rep_Support_Lightning_v13</members>
         <name>GenAiPlannerBundle</name>
     </types>
+    <types>
+        <members>Rep_Support_Agent_Access</members>
+        <name>PermissionSet</name>
+    </types>
     <version>61.0</version>
 </Package>

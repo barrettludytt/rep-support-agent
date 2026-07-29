@@ -29,19 +29,21 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
 
 ## 3. Post-deploy MANUAL steps
 
-- [ ] **Permission set — OWNED BY THE SALESFORCE TEAM (not built here, by decision).** Create a
-      `Rep_Support_Agent` permission set granting **Apex-execute** on `RepKnowledgeSearch`,
-      `KnowledgeDraftBuilder`, `SFSupport_JiraClient`; **`Knowledge__kav` Create + Read**; and
-      **data-category visibility** on every category the agent answers from (public HC + internal).
-      - ⚠️ **Assign it to BOTH the reps AND the agent's run-as user** (the `Einstein Agent User`,
-        e.g. `rep_support_agent@…`). Verified in devtt (2026-07-28): that agent user currently
-        LACKS `Knowledge__kav` Create **and** Apex-execute on `KnowledgeDraftBuilder` (it has execute
-        on `RepKnowledgeSearch`, which is why Q&A works). Because of this, the **draft-article
-        sub-agent silently fails** — the `apex://KnowledgeDraftBuilder` action can't run as the agent
-        user, yet the agent reported "draft created." (The `file_bug_to_jira` path is unaffected
-        because it runs through a Flow, i.e. system context, not a direct `apex://` action.)
-      - The auto-generated agent permset (`Rep_Support_Agent…​ Permissions`) is incomplete — it did
-        not include `KnowledgeDraftBuilder` execute or Knowledge Create. Re-generate/extend it.
+- [ ] **Permission set — `Rep_Support_Agent_Access` (committed; SF team validates/extends for prod).**
+      Grants **Apex-execute** on `RepKnowledgeSearch`, `KnowledgeDraftBuilder`, `SFSupport_SlackTicketPost`
+      and **`Knowledge__kav` Create/Read/Edit**. **Assign it to BOTH the reps AND the agent's run-as
+      user** (the `Einstein Agent User`, e.g. `rep_support_agent@…`).
+      - Done in devtt (2026-07-28): permset created + assigned to the agent user; verified it now has
+        Apex-execute on `KnowledgeDraftBuilder` + `Knowledge__kav` Create. (Previously it lacked both,
+        which is why the draft-article step silently failed; the v13 hardening now makes it fail loudly.)
+      - ⚠️ **Knowledge-User license caveat:** the `Einstein Agent User` license type **cannot** hold the
+        "Knowledge User" flag (`FIELD_INTEGRITY_EXCEPTION: Knowledge User is not allowed for this License
+        Type`). A `runAs`-the-agent-user test of `KnowledgeDraftBuilder` still **succeeded** (Apex
+        system-mode created the draft), but test-context doesn't always enforce feature licenses like
+        runtime — so **confirm draft creation in a live preview**. If it fails on a Knowledge-User error
+        at runtime, route the draft create through a **Flow** (system context, like `file_bug`/George's
+        draft flow) instead of the direct `apex://` action.
+      - Add **data-category visibility** on the categories the agent answers from if the org enforces it.
 - [ ] **Knowledge scope — DECIDED (implemented).** `RepKnowledgeSearch` searches **all published
       (Online) articles** with no visibility/category filter — both public Help Center content AND
       non-public internal KB articles. This is an INTERNAL, employee-only agent, so it grounds on
