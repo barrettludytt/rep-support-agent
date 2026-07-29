@@ -36,13 +36,10 @@ sf agent activate  --api-name Rep_Support_Lightning --target-org <org>
       - Done in devtt (2026-07-28): permset created + assigned to the agent user; verified it now has
         Apex-execute on `KnowledgeDraftBuilder` + `Knowledge__kav` Create. (Previously it lacked both,
         which is why the draft-article step silently failed; the v13 hardening now makes it fail loudly.)
-      - ⚠️ **Knowledge-User license caveat:** the `Einstein Agent User` license type **cannot** hold the
-        "Knowledge User" flag (`FIELD_INTEGRITY_EXCEPTION: Knowledge User is not allowed for this License
-        Type`). A `runAs`-the-agent-user test of `KnowledgeDraftBuilder` still **succeeded** (Apex
-        system-mode created the draft), but test-context doesn't always enforce feature licenses like
-        runtime — so **confirm draft creation in a live preview**. If it fails on a Knowledge-User error
-        at runtime, route the draft create through a **Flow** (system context, like `file_bug`/George's
-        draft flow) instead of the direct `apex://` action.
+      - ⚠️ **Draft creation is BLOCKED at runtime — see the "privileged writes" item below (§8).** The
+        `Einstein Agent User` license type cannot hold the "Knowledge User" flag, and live-preview
+        testing confirmed **no article is created** even with Apex-execute + Knowledge Create granted.
+        (A `runAs` test passed — a false positive; test-context skips feature-license checks.)
       - Add **data-category visibility** on the categories the agent answers from if the org enforces it.
 - [ ] **Knowledge scope — DECIDED (implemented).** `RepKnowledgeSearch` searches **all published
       (Online) articles** with no visibility/category filter — both public Help Center content AND
@@ -128,6 +125,24 @@ it doubles as the content team's audit trail.
 > + `Slack_HelpCenterUpdates` NC, and the old Jira-callout infra (`SFSupport_JiraClient`, flow
 > `AF_SFSupport_Create_Jira_Bug`, `SF_Support_Agent_Setting__mdt`, `Jira_Egress`). Left in the repo for history.
 > Cosmetic: sub-agent still labeled `file_bug_to_jira` (kept to avoid breaking the router + test suites).
+
+## 8. Privileged agent write-actions — SF TEAM to fix at the root (one fix, two features)
+
+Two agent capabilities need a **privileged execution identity** the agent's run-as user doesn't have.
+Same root cause, so one initiative fixes both:
+
+- **Draft a Knowledge article** (`draft_knowledge_article` → `KnowledgeDraftBuilder`): BLOCKED — the
+  `Einstein Agent User` license type cannot be a "Knowledge User," and Knowledge creation requires it.
+  Confirmed in live preview (no article created). Currently left as-is (no workaround shipped).
+- **Create a real Jira ticket** (`file_bug_to_jira`): the agent can't authenticate to Jira (no
+  service-user OAuth), so it was pivoted to **post to `#help-center-updates` Slack** as an interim.
+
+**Root cause (shared):** the agent's run-as user can't perform privileged writes — it lacks the
+Knowledge-User license *and* a Jira credential. **Recommended fix (one initiative):** provision a proper
+**service / integration identity** for the agent's write-actions and grant it BOTH (a) the Knowledge-User
+license and (b) a Jira service-account credential. That single setup unblocks **real Knowledge drafts
+AND real Jira tickets**, and turns the Slack posts into optional conveniences rather than necessities.
+(Specific missing pieces differ — license vs. auth — but it's one "give the agent a privileged identity" job.)
 
 ## Data Library grounding (added — needs Builder verification)
 
